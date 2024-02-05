@@ -1,6 +1,6 @@
 import React from "react";
  
-const Paycheck = () => {
+const Navbar = () => {
     return (
         <div>
             <h1>Testing</h1>
