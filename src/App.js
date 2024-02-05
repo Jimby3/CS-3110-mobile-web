@@ -1,7 +1,7 @@
 import React from "react";
 import logo from './logo.svg';
 import './App.css';
-import Navbar from "./components/Navbar/Navbar";
+//import Navbar from "./components/Navbar";
 
 import {
   BrowserRouter as Router,
@@ -12,22 +12,21 @@ import {
 import Home from "./pages/Home";
 import Paycheck from "./pages/Paycheck";
 import Budget from "./pages/Budget";
+import ErrorPage from "./pages/ErrorPage";
 
 
 function App() {
   return (
     <div className="App">
       <Router>
-            <Navbar />
-            <Routes>
-                <Route exact path="/" element={<Home />} />
-                <Route path="/budget" element={<Budget />} />
-                <Route
-                    path="/paycheck"
-                    element={<Paycheck/>}
-                />
-            </Routes>
-        </Router>
+        <Routes>
+            <Route index element={<Home />}/>
+            <Route path="/home" element={<Home />} />
+            <Route path="/budget" element={<Budget />} />
+            <Route path="/paycheck" element={<Paycheck />} />
+            <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </Router>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
