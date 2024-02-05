@@ -1,9 +1,33 @@
+import React from "react";
 import logo from './logo.svg';
 import './App.css';
+import Navbar from "./components/Navbar/Navbar";
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+
+import Home from "./pages/Home";
+import Paycheck from "./pages/Paycheck";
+import Budget from "./pages/Budget";
+
 
 function App() {
   return (
     <div className="App">
+      <Router>
+            <Navbar />
+            <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route path="/budget" element={<Budget />} />
+                <Route
+                    path="/paycheck"
+                    element={<Paycheck/>}
+                />
+            </Routes>
+        </Router>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
