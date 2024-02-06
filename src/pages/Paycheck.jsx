@@ -34,6 +34,18 @@ const Paycheck = () => {
         <div>
             <Navbar></Navbar>
             <h1>Testing</h1>
+            <form></form>
+              <label for="hoursWorked">Hours Worked</label><br></br>
+              <input type="text" id="hoursWorked" name="hoursWorked"></input><br></br>
+              <label for="hourlyRate">Hourly Rate:</label><br></br>
+              <input type="text" id="hourlyRate" name="hourlyRate"></input><br></br>
+              <hr></hr>
+              <label for="payperiods">Payperiods Per Year:</label><br></br>
+              <input type="text" id="payperiods" name="payperiods"></input><br></br>
+              <label for="allowance">Allowance:</label><br></br>
+              <input type="text" id="allowance" name="allowance"></input>
+              <label for="addAllowance">Additional Allowance:</label><br></br>
+              <input type="text" id="addAllowance" name="addAllowance"></input><br></br>
 
             <WithholdingState wages={480} payperiods={26} allowance={5000} addtional={0} hours={30}/>
         </div>
