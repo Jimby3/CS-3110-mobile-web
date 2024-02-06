@@ -1,13 +1,13 @@
 import React from "react";
 import Navbar from "../components/Navbar";
  
-const Paycheck = () => {
+const ErrorPage = () => {
     return (
         <div>
             <Navbar></Navbar>
-            <h1>Testing</h1>
+            <h1>404</h1>
         </div>
     );
 };
  
-export default Paycheck;
+export default ErrorPage;
