@@ -30,20 +30,44 @@ import Navbar from "../components/Navbar";
   }
 
 const Paycheck = () => {
+  const [hours, setHours] = React.useState('');
+  const [hourly, setHourly] = React.useState('');
+  const [payperiods, setPayperiods] = React.useState('');
+  const [allowance, setAllowance] = React.useState('');
+  const [addallowance, setAddAllowance] = React.useState('');
     return (
         <div>
             <Navbar></Navbar>
-            <h1>Testing</h1>
+            <h1>Payperiod</h1>
             <form></form>
               <label for="hoursWorked">Hours Worked</label><br></br>
-              <input type="text" id="hoursWorked" name="hoursWorked"></input><br></br>
+              <input type="text" 
+                id="hoursWorked" 
+                name="hoursWorked"
+                value={hours}
+                onChange={event => {
+                  setHours(event.target.value);
+                }}>
+              </input><br></br>
+              <p>{hours}</p> 
+
               <label for="hourlyRate">Hourly Rate:</label><br></br>
-              <input type="text" id="hourlyRate" name="hourlyRate"></input><br></br>
+              <input type="text" 
+                id="hourlyRate" 
+                name="hourlyRate"
+                >
+              </input><br></br>
               <hr></hr>
+
               <label for="payperiods">Payperiods Per Year:</label><br></br>
-              <input type="text" id="payperiods" name="payperiods"></input><br></br>
+              <input type="text" 
+                id="payperiods" 
+                name="payperiods">
+              </input><br></br>
+
               <label for="allowance">Allowance:</label><br></br>
               <input type="text" id="allowance" name="allowance"></input>
+              
               <label for="addAllowance">Additional Allowance:</label><br></br>
               <input type="text" id="addAllowance" name="addAllowance"></input><br></br>
 
