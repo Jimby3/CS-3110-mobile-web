@@ -1,4 +1,5 @@
 import React from "react";
+import WithholdingMath from "./WithholdingMath";
  
 const WithholdingCO = () => {
     const [hours, setHours] = React.useState('');
@@ -8,7 +9,7 @@ const WithholdingCO = () => {
     const [addallowance, setAddAllowance] = React.useState('');
     return (
         <form>
-            <label for="hoursWorked">Hours Worked</label><br></br>
+        <label for="hoursWorked">Hours Worked</label><br></br>
               <input type="text" 
                 id="hoursWorked" 
                 name="hoursWorked"
@@ -59,6 +60,7 @@ const WithholdingCO = () => {
                   setAddAllowance(event.target.value);
                 }}></input><br></br>
             </form>
+            <WithholdingMath hours={hours} hourly={hourly} payperiods={payperiods} allowance={allowance} addtional={addallowance}/>
     );
 };
  
