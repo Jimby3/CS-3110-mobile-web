@@ -2,13 +2,15 @@ import React from "react";
 import Navbar from "../components/Navbar";
  
 
-  function WithholdingState({ wages, payperiods, allowance, addtional, hours }) {
-    
+  function WithholdingState({hours, hourly, payperiods, allowance, addtional}) {
+    var wages = hours * hourly;
     var yearly = wages * payperiods;
     var withholding = yearly - allowance;
     var percentage = withholding * 0.044;
     var excatAmount = percentage  / payperiods;
     var coloradoFML = hours * 0.072;
+    var rounded = excatAmount.toFixed(2);
+    var roundedFML = coloradoFML.toFixed(2);
 
     return (
       <ul>    
@@ -21,9 +23,10 @@ import Navbar from "../components/Navbar";
         <li>Withholding Yearly: {withholding}</li>
         <li>Percentage: {percentage}</li>
         <li>Payperiod Check: {excatAmount}</li>
-        <li>State Withholding (rounded up): round</li>
-        <li>Colorado FML: {coloradoFML}</li>
-        <li>Total: {excatAmount + coloradoFML}</li>
+        <li>State Withholding (rounded up): {rounded}</li>
+        <li>Colorado FML: {roundedFML}</li>
+        <li>Gov Taking Total: {rounded + roundedFML}</li>
+        <li>Gross? : {wages - rounded - roundedFML}</li>
 
       </ul>
     );
@@ -55,23 +58,43 @@ const Paycheck = () => {
               <input type="text" 
                 id="hourlyRate" 
                 name="hourlyRate"
-                >
+                value={hourly}
+                onChange={event => {
+                  setHourly(event.target.value);
+                }}>
               </input><br></br>
+              <p>{hourly}</p>
               <hr></hr>
 
               <label for="payperiods">Payperiods Per Year:</label><br></br>
               <input type="text" 
                 id="payperiods" 
-                name="payperiods">
+                name="payperiods"
+                value={payperiods}
+                onChange={event => {
+                  setPayperiods(event.target.value);
+                }}>
               </input><br></br>
 
               <label for="allowance">Allowance:</label><br></br>
-              <input type="text" id="allowance" name="allowance"></input>
+              <input type="text" 
+                id="allowance" 
+                name="allowance"
+                value={allowance}
+                onChange={event => {
+                  setAllowance(event.target.value);
+                }}></input>
               
               <label for="addAllowance">Additional Allowance:</label><br></br>
-              <input type="text" id="addAllowance" name="addAllowance"></input><br></br>
+              <input type="text" 
+                id="addAllowance" 
+                name="addAllowance"
+                value={addallowance}
+                onChange={event => {
+                  setAddAllowance(event.target.value);
+                }}></input><br></br>
 
-            <WithholdingState wages={480} payperiods={26} allowance={5000} addtional={0} hours={30}/>
+            <WithholdingState hours={hours} hourly={hourly} payperiods={payperiods} allowance={allowance} addtional={addallowance}/>
         </div>
     );
 };
