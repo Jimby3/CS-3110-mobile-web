@@ -11,8 +11,9 @@ import {
 
 import Home from "./pages/Home";
 import Paycheck from "./pages/Paycheck";
-import Budget from "./pages/Budget";
+import PaycheckBudget from "./pages/PaycheckBudget";
 import ErrorPage from "./pages/ErrorPage";
+import ConfigureBudget from "./pages/ConfigureBudget";
 
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
         <Routes>
             <Route index element={<Home />}/>
             <Route path="/home" element={<Home />} />
-            <Route path="/budget" element={<Budget />} />
+            <Route path="/paycheck-budget" element={<PaycheckBudget />} />
+            <Route path="/configure-budget" element={<ConfigureBudget />} />
             <Route path="/paycheck" element={<Paycheck />} />
             <Route path="*" element={<ErrorPage />} />
         </Routes>
