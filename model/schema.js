@@ -21,7 +21,7 @@ export const mySchema = appSchema({
       }),
 
       tableSchema({
-        name: 'catagories',
+        name: 'categories',
         columns: [
           { name: 'name', type: 'string' },
           { name: 'percent', type: 'number'},
