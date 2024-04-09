@@ -5,4 +5,8 @@ export default class Category extends Model {
     static associations = {
       users: { type: 'belongs_to', key: 'user_id' },
     }
+
+    @text('name') name
+    @number('percent') percent
+    @balance('percent') balance
   }
