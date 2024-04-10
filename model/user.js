@@ -5,4 +5,8 @@ export default class User extends Model {
     static associations = {
       categorys: { type: 'has_many', foreignKey: 'catagory_id' },
     }
+
+    @text('username') username
+    @text('email') email
+    @text('password') password
   }

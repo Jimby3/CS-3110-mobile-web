@@ -5,4 +5,6 @@ export default class Budget extends Model {
     static associations = {
       goals: { type: 'has_many', foreignKey: 'budget_id' },
     }
+
+    
   }
