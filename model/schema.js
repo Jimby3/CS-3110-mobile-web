@@ -44,9 +44,9 @@ export const mySchema = appSchema({
       tableSchema({
         name: 'taxes',
         columns: [
-          { name: 'state_withholding', type: 'string' },
+          { name: 'state_withholding', type: 'number' },
           { name: 'state_id', type: 'number'},
-          { name: 'federal_withholding', type: 'string' },
+          { name: 'federal_withholding', type: 'number' },
           { name: 'federal_id', type: 'number'},
           { name: 'user_id', type: "string", isIndexed: true },
         ]

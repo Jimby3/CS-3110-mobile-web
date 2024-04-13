@@ -41,6 +41,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.24.0"
+    "@babel/plugin-proposal-decorators": "^7.24.1"
   }
 }
