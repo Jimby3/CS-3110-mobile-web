@@ -3,7 +3,8 @@ import { Model } from '@nozbe/watermelondb'
 export default class Budget extends Model {
     static table = 'budgets'
     static associations = {
-      goals: { type: 'has_many', foreignKey: 'budget_id' },
+      categories: { type: 'has_many', foreignKey: 'category_id' },
+      goals: { type: 'has_many', foreignKey: 'goal_id' },
     }
 
     

@@ -7,7 +7,6 @@ export const mySchema = appSchema({
     tableSchema({
         name: 'users',
         columns: [
-            //I Dont think an ID is needed it might be implied?
           { name: 'username', type: 'string' },
           { name: 'email', type: 'string'},
           { name: 'password', type: 'string' },
@@ -16,7 +15,8 @@ export const mySchema = appSchema({
       tableSchema({
         name: 'budgets',
         columns: [
-          { name: 'catagory_id', type: 'number' },
+          { name: 'category_id', type: "string", isIndexed: true },
+          { name: 'user_id', type: "string", isIndexed: true },
         ]
       }),
 
@@ -26,6 +26,7 @@ export const mySchema = appSchema({
           { name: 'name', type: 'string' },
           { name: 'percent', type: 'number'},
           { name: 'balance', type: 'number'},
+          { name: 'budget_id', type: "string", isIndexed: true },
         ]
       }),
 
@@ -33,9 +34,10 @@ export const mySchema = appSchema({
         name: 'goals',
         columns: [
           { name: 'name', type: 'string' },
-          { name: 'goalamount', type: 'number' },
+          { name: 'goal_amount', type: 'number' },
           { name: 'balance', type: 'number'},
           { name: 'description', type: 'string' },
+          { name: 'budget_id', type: "string", isIndexed: true },
         ]
       }),
 
@@ -46,6 +48,7 @@ export const mySchema = appSchema({
           { name: 'state_id', type: 'number'},
           { name: 'federal_withholding', type: 'string' },
           { name: 'federal_id', type: 'number'},
+          { name: 'user_id', type: "string", isIndexed: true },
         ]
       }),
   ]
