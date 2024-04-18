@@ -1,7 +1,7 @@
 import React from "react";
 import logo from './logo.svg';
 import './App.css';
-//import Navbar from "./components/Navbar";
+
 
 import {
   BrowserRouter as Router,
@@ -11,23 +11,27 @@ import {
 
 import Home from "./pages/Home";
 import Paycheck from "./pages/Paycheck";
-import PaycheckBudget from "./pages/PaycheckBudget";
+import PaycheckBudget from "./pages/budget-pages/PaycheckBudget";
 import ErrorPage from "./pages/ErrorPage";
-import ConfigureBudget from "./pages/ConfigureBudget";
+import ConfigureBudget from "./pages/budget-pages/ConfigureBudget";
+import ConfigureBudgetCategory from "./pages/budget-pages/ConfigureBudgetCategory";
+
 
 
 function App() {
+
   return (
     <div className="App">
       <Router>
-        <Routes>
-            <Route index element={<Home />}/>
-            <Route path="/home" element={<Home />} />
-            <Route path="/paycheck-budget" element={<PaycheckBudget />} />
-            <Route path="/configure-budget" element={<ConfigureBudget />} />
-            <Route path="/paycheck" element={<Paycheck />} />
-            <Route path="*" element={<ErrorPage />} />
-        </Routes>
+            <Routes>
+                <Route index element={<Home />}/>
+                <Route path="/home" element={<Home />} />
+                <Route path="/paycheck-budget" element={<PaycheckBudget />} />
+                <Route path="/configure-budget" element={<ConfigureBudget/>} />
+                <Route path="/configure-budget-category" element={<ConfigureBudgetCategory/>} />
+                <Route path="/paycheck" element={<Paycheck />} />
+                <Route path="*" element={<ErrorPage />} />
+            </Routes>
       </Router>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
