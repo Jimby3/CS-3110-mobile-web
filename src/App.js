@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from './logo.svg';
 import './App.css';
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, getDocs, addDoc } from 'firebase/firestore'
 //import Navbar from "./components/Navbar";
 
 import {
@@ -19,8 +19,16 @@ import { db } from "./firebase-config";
 
 
 function App() {
+  const [newUsername, setNewUsername] = useState("")
+  const [newEmail, setNewEmail] = useState("")
+  const [newPassword, setNewPassword] = useState("")
   const [users, setUsers] = useState([])
   const usersCollectionRef = collection(db, "users")
+
+  const createUser = async () => {
+    await addDoc(usersCollectionRef, {email: newEmail, password: newPassword, username: newUsername});
+
+  }
   useEffect(() => {
 
     const getUsers = async () => {
@@ -34,6 +42,10 @@ function App() {
 
   return (
     <div className="App"> {users.map((user) => { return <div><h1>Name: {user.email}</h1></div>})}
+    <input placeholder="Username..." onChange={(event) => {setNewUsername(event.target.value)}}></input>
+    <input placeholder="Email" onChange={(event) => {setNewEmail(event.target.value)}}></input>
+    <input placeholder="Password" onChange={(event) => {setNewPassword(event.target.value)}}></input>
+    <button onClick={createUser}> Create User</button>
       <Router>
         <Routes>
             <Route index element={<Home />}/>
