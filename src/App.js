@@ -16,36 +16,12 @@ import Paycheck from "./pages/Paycheck";
 import Budget from "./pages/Budget";
 import ErrorPage from "./pages/ErrorPage";
 import { db } from "./firebase-config";
+import Crud from "./crud";
 
 
 function App() {
-  const [newUsername, setNewUsername] = useState("")
-  const [newEmail, setNewEmail] = useState("")
-  const [newPassword, setNewPassword] = useState("")
-  const [users, setUsers] = useState([])
-  const usersCollectionRef = collection(db, "users")
-
-  const createUser = async () => {
-    await addDoc(usersCollectionRef, {email: newEmail, password: newPassword, username: newUsername});
-
-  }
-  useEffect(() => {
-
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      //Array of users basically
-      setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
-    };
-
-    getUsers()
-  }, []);
-
   return (
-    <div className="App"> {users.map((user) => { return <div><h1>Name: {user.email}</h1></div>})}
-    <input placeholder="Username..." onChange={(event) => {setNewUsername(event.target.value)}}></input>
-    <input placeholder="Email" onChange={(event) => {setNewEmail(event.target.value)}}></input>
-    <input placeholder="Password" onChange={(event) => {setNewPassword(event.target.value)}}></input>
-    <button onClick={createUser}> Create User</button>
+    <div className="App">
       <Router>
         <Routes>
             <Route index element={<Home />}/>
@@ -55,6 +31,7 @@ function App() {
             <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>
+      <Crud></Crud>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
