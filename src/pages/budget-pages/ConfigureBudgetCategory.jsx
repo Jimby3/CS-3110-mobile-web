@@ -11,7 +11,6 @@ const ConfigureBudgetCategory = () => {
 
     const handleSubmit = (event) => {
 
-        // eslint-disable-next-line react-hooks/rules-of-hooks
         const queryParams = new URLSearchParams(location.search);
         let index = queryParams.get('index');
 
@@ -36,6 +35,8 @@ const ConfigureBudgetCategory = () => {
         if(amountType === 'dollars'){
 
             category.dollarAmount = amount
+            category.trueDollar = true
+
 
         } else {
 
@@ -43,10 +44,15 @@ const ConfigureBudgetCategory = () => {
 
         }
 
+        // if index is passed, edit instead of making a new category
         if(index){
+
             budget.editCategoryByIndex(index, category)
+
         } else {
+
             budget.addCategory(category)
+
         }
 
 

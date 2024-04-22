@@ -20,7 +20,6 @@ class Budget {
     }
 
 
-
     // Method to add a category to the budget
     addCategory(category) {
         this.categories.push(category);
@@ -51,14 +50,21 @@ class Budget {
     static fromJSON(json) {
         const budget = new Budget();
         if (json && Array.isArray(json.categories)) {
-            json.categories.forEach(category => {
-                const { _name, _dollarAmount, _percentage } = category;
+            json.categories.forEach(categoryData => {
+                const { _name, _dollarAmount, _percentage, _trueDollar } = categoryData;
                 const newCategory = new Category(_name);
                 newCategory.dollarAmount = parseFloat(_dollarAmount); // Parse dollarAmount as a number
                 newCategory.percentage = parseFloat(_percentage); // Parse percentage as a number
+                newCategory.trueDollar = _trueDollar;
                 budget.addCategory(newCategory);
             });
         }
+
+        // Deserialize chart instance
+        if (json && json.chartInstance) {
+            budget.chartInstance = json.chartInstance;
+        }
+
         return budget;
     }
 
@@ -79,54 +85,36 @@ class Budget {
     }
 
 
-
-
-
-    fillBudget() {
-        // Calculate total dollar amount
-        const totalDollarAmount = this.categories.reduce((total, category) => total + category.dollarAmount, 0);
-
-        // Log the total dollar amount to check its value
-        console.log("Total Dollar Amount:", totalDollarAmount);
-
-        // Iterate through each category and fill it based on its type
+    // this takes the categories that are filled with a percentage or dollar amount and fills the other respectively
+    correctBudgetOffIncome() {
+        // Iterate through each category
         this.categories.forEach(category => {
-            if (category.percentage !== 0) {
-                // Fill category based on percentage
-                category.dollarAmount = (category.percentage / 100) * this.income;
+            if (category.trueDollar === true) {
+                // Set percentage based on dollars
+                category.percentage = (category.dollarAmount / this.income) * 100;
             } else {
-                // Fill category based on dollar amount
-                category.percentage = (category.dollarAmount / totalDollarAmount) * 100;
+                // Set dollars based on percentage
+                category.dollarAmount = (category.percentage / 100) * this.income;
             }
         });
 
-        // Log the categories after filling to check their values
-        console.log("Categories after filling:", this.categories);
+        // Log the categories after updating to check their values
+        console.log("Categories after correction:", this.categories);
     }
 
-
-
-    // Method to generate pie chart data
     generatePieChartData() {
         const labels = this.categories.map(category => category.name);
-        const data = this.categories.map(category => category.percentage);
+        const data = this.categories.map(category => category.percentage); // Assuming categories have a percentage property
         return { labels, data };
     }
 
-    // Method to visualize the budget as a pie chart
-    async visualizeAsPieChart(pieChartData) {
-        const ctx = document.getElementById('pie-chart');
 
+    // Method to create a pie chart
+    createPieChart() {
         try {
-            // Destroy existing chart synchronously
-            if (this.chartInstance) {
-                this.chartInstance.destroy();
-            }
+            const ctx = document.getElementById('pie-chart').getContext('2d');
+            const pieChartData = this.generatePieChartData();
 
-            // Wait for the destruction of the existing chart to complete
-            await new Promise(resolve => setTimeout(resolve, 0));
-
-            // Create new chart
             this.chartInstance = new Chart(ctx, {
                 type: 'pie',
                 data: {
@@ -160,9 +148,29 @@ class Budget {
                 }
             });
         } catch (error) {
-            console.error('Error visualizing pie chart:', error);
+            console.log(error)
+            this.updatePieChart()
+
         }
     }
+
+
+    // Method to update the pie chart with current data
+    updatePieChart() {
+        if (this.chartInstance) {
+            const pieChartData = this.generatePieChartData();
+
+            // Update chart data
+            this.chartInstance.data.labels = pieChartData.labels;
+            this.chartInstance.data.datasets[0].data = pieChartData.data;
+
+            // Update the chart
+            this.chartInstance.update();
+        } else {
+            console.error('Pie chart has not been created yet.');
+        }
+    }
+
 }
 
     export default Budget;

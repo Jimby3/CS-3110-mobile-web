@@ -1,31 +1,8 @@
-import React, {useEffect} from "react";
 import Navbar from "../../components/Navbar";
 import {Link} from "react-router-dom";
 import Budget from "../../classes/Budget";
 
 const PaycheckBudget = () => {
-
-    useEffect(() => {
-
-        // Retrieve stored budget from sessionStorage
-        let storedBudget = JSON.parse(sessionStorage.getItem("budget"));
-
-        // Instantiate a new budget if there's no stored budget
-        let budget = Budget.fromJSON(storedBudget);
-
-        // Generate pie chart data
-        const pieChartData = budget.generatePieChartData();
-
-
-        budget.income = 1000
-        //converts dollars to % and vise versa for the budget
-        budget.fillBudget()
-
-        // Visualize the budget as a pie chart
-        budget.visualizeAsPieChart(pieChartData);
-
-
-    }, []);
 
     // Function to handle form submission
     const handleSubmit = (event) => {
@@ -33,21 +10,25 @@ const PaycheckBudget = () => {
 
         // Retrieve stored budget from sessionStorage
         let storedBudget = JSON.parse(sessionStorage.getItem("budget"));
+        console.log(storedBudget)
 
         // Instantiate a new budget if there's no stored budget
         let budget = Budget.fromJSON(storedBudget);
 
         const formData = new FormData(event.target)
-        let income = formData.get("incomeInput")
+        let income = formData.get('incomeInput')
+        console.log(income)
 
-        const pieChartData = budget.generatePieChartData();
+
 
 
         budget.income = income
-        //converts dollars to % and vise versa for the budget
-        budget.fillBudget()
 
-        budget.visualizeAsPieChart(pieChartData);
+        //converts dollars to % and vise versa for the budget
+        budget.correctBudgetOffIncome()
+
+        budget.createPieChart()
+
         sessionStorage.setItem("budget", JSON.stringify(budget))
 
 
@@ -61,11 +42,7 @@ const PaycheckBudget = () => {
 
             <form onSubmit={handleSubmit}>
                 <label htmlFor="incomeInput">Enter Your Income:</label>
-                <input
-                    type="number"
-                    id="incomeInput"
-                    required
-                />
+                <input type="number" id="incomeInput" name="incomeInput" required/>
                 <button type="submit">Submit</button>
             </form>
 
@@ -74,8 +51,6 @@ const PaycheckBudget = () => {
             </Link>
             <canvas id="pie-chart" width="400" height="400"></canvas>
 
-
-            <p>test rendering</p>
         </div>
     );
 };

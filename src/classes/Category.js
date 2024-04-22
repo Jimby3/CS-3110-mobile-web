@@ -3,6 +3,7 @@ class Category {
         this.name = name;
         this.percentage = 0
         this.dollarAmount = 0
+        this.trueDollar = false
     }
 
     // Getter methods
@@ -16,6 +17,15 @@ class Category {
 
     get dollarAmount() {
         return this._dollarAmount;
+    }
+
+    get trueDollar() {
+        return this._trueDollar;
+    }
+
+    // Setter for trueDollar
+    set trueDollar(value) {
+        this._trueDollar = value;
     }
 
     // Setter methods
