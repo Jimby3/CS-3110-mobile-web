@@ -1,12 +1,16 @@
 import Navbar from "../../components/Navbar";
 import {Link} from "react-router-dom";
 import Budget from "../../classes/Budget";
+import Chart from 'chart.js/auto';
 
 const PaycheckBudget = () => {
+
 
     // Function to handle form submission
     const handleSubmit = (event) => {
         event.preventDefault(); // Prevent default form submission behavior
+
+
 
         // Retrieve stored budget from sessionStorage
         let storedBudget = JSON.parse(sessionStorage.getItem("budget"));
@@ -19,17 +23,30 @@ const PaycheckBudget = () => {
         let income = formData.get('incomeInput')
         console.log(income)
 
-
-
-
         budget.income = income
 
         //converts dollars to % and vise versa for the budget
-        budget.correctBudgetOffIncome()
+        let overBudget = budget.correctBudgetOffIncome()
+
+        budget.generatePieChartData()
+
+        sessionStorage.setItem("budget", JSON.stringify(budget))
+
+
+
+        const chartInstance = Chart.getChart("pie-chart")
+
+        if (chartInstance){
+            chartInstance.destroy()
+        }
+
 
         budget.createPieChart()
 
-        sessionStorage.setItem("budget", JSON.stringify(budget))
+        if (overBudget){
+            window.window.alert("Categories Over 100%, Please reconfigure Categories")
+        }
+
 
 
     };
