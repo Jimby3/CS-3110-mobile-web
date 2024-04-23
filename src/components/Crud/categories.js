@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { collection, getDocs, addDoc } from 'firebase/firestore'
-import { db } from "./firebase-config";
+import { db } from "../../firebase-config";
 
 const Categories = () => {
     const [newBalance, setNewBalance] = useState(0)
