@@ -16,7 +16,8 @@ import Paycheck from "./pages/Paycheck";
 import Budget from "./pages/Budget";
 import ErrorPage from "./pages/ErrorPage";
 import { db } from "./firebase-config";
-import Crud from "./crud";
+import UserCreate from "./components/Crud/usercreate";
+import UserRead from "./components/Crud/userread";
 
 
 function App() {
@@ -31,7 +32,8 @@ function App() {
             <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>
-      <Crud></Crud>
+      <UserCreate></UserCreate>
+      <UserRead></UserRead>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
