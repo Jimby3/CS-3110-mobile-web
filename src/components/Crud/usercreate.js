@@ -16,10 +16,10 @@ const UserCreate = () => {
 
     return (
         <div>
-            <input placeholder="Username..." onChange={(event) => {setNewUsername(event.target.value)}}></input>
-            <input placeholder="Email" onChange={(event) => {setNewEmail(event.target.value)}}></input>
-            <input placeholder="Password" onChange={(event) => {setNewPassword(event.target.value)}}></input>
-            <button onClick={createUser}> Create User</button>
+            <input userNameInput="Username..." onChange={(event) => {setNewUsername(event.target.value)}}></input>
+            <input userEmail="Email" onChange={(event) => {setNewEmail(event.target.value)}}></input>
+            <input type="password" userPassword="Password" onChange={(event) => {setNewPassword(event.target.value)}}></input>
+            <button type="submit" onClick={createUser}> Create User</button>
         </div>
     )
 }

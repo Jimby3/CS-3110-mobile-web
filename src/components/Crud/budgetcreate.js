@@ -16,9 +16,9 @@ const BudgetCreate = () => {
 
     return (
         <div>
-            <input placeholder="UserId..." onChange={(event) => {setNewUserId(event.target.value)}}></input>
-            <input placeholder="GoalsId" onChange={(event) => {setNewGoalsId(event.target.value)}}></input>
-            <input placeholder="CategoriesId" onChange={(event) => {setNewCategoriesId(event.target.value)}}></input>
+            <input budgetUserID="UserId..." onChange={(event) => {setNewUserId(event.target.value)}}></input>
+            <input budgetGoalIDInput="GoalsId" onChange={(event) => {setNewGoalsId(event.target.value)}}></input>
+            <input budgetCategoryIDInput="CategoriesId" onChange={(event) => {setNewCategoriesId(event.target.value)}}></input>
             <button onClick={createBudget}> Create new Budget</button>
         </div>
     )
