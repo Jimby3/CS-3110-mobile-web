@@ -4,20 +4,32 @@ import { db } from "../../firebase-config";
 
 const BudgetRead = ({ username }) => {
     //const usersRef = collection(db, "users");
-    //const [budgets, setBudgets] = useState([]);
-    //const budgetsCollectionRef = collection(db, "budgets");
-    const budgetRef = doc(db, "budgets", "username");
+    const [budgets, setBudgets] = useState([]);
+    const budgetsCollectionRef = collection(db, "budgets");
+    //const budgetRef = doc(db, "budgets", "username");
 
     useEffect(() => {
         const getBudgets = async () => {
-            
+            const querySnapshot = await getDocs(budgetsCollectionRef)
+            const budgetData = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }))
+            getBudgets(budgetData);
         };
 
         getBudgets();
-    }, []); 
+    }, [username]); 
     return (
         <div>
-            <p>Blank</p>
+            <p>Budget Info</p>
+            <ul>
+                {budgets.map(budget => (
+                    <li key={budget.id}>
+                        <p>Name: {budget.categoriesid}</p>
+                    </li>
+                ))}
+            </ul>
         </div>
     )
 

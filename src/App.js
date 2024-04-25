@@ -18,8 +18,10 @@ import ErrorPage from "./pages/ErrorPage";
 import { db } from "./firebase-config";
 import UserCreate from "./components/Crud/usercreate";
 import CategoryCreate from "./components/Crud/categorycreate";
+import BudgetRead from "./components/Crud/budgetread";
 
 function App() {
+  const username = "exampleUsername";
   return (
     <div className="App">
       <Router>
@@ -33,6 +35,7 @@ function App() {
       </Router>
       <UserCreate></UserCreate>
       <CategoryCreate></CategoryCreate>
+      <BudgetRead username={username}></BudgetRead>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
