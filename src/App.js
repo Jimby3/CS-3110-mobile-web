@@ -41,21 +41,13 @@ function App() {
             <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>
-      <UserCreate></UserCreate>
-      <CategoryCreate></CategoryCreate>
-      <BudgetRead username={username}></BudgetRead>
+      {/*<UserCreate></UserCreate>*/}
+      {/*<CategoryCreate></CategoryCreate>*/}
+      {/*<BudgetRead username={username}></BudgetRead>*/}
       <header className="App-header">
         <p>
           basic starting webpage for CS 3110
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
