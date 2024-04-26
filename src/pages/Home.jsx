@@ -12,7 +12,7 @@ const Home = () => {
                 <Link to="/paycheck">
                     <button>Paycheck Calc</button>
                 </Link>
-                <Link to="/budget">
+                <Link to="/paycheck-budget">
                     <button>Budget</button>
                 </Link>
             </div>
