@@ -26,9 +26,6 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/paycheck" element={<Paycheck />} />
             <Route path="/savings" element={<SavingsGoalPage />} />
-            <Route path="*" element={<ErrorPage />} />
-            <Route index element={<Home />}/>
-            <Route path="/home" element={<Home />} />
             <Route path="/paycheck-budget" element={<PaycheckBudget />} />
             <Route path="/configure-budget" element={<ConfigureBudget/>} />
             <Route path="/configure-budget-category" element={<ConfigureBudgetCategory/>} />
