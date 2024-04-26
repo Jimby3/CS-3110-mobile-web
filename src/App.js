@@ -1,16 +1,23 @@
 import React from "react";
 import './App.css';
+import { collection, getDocs, addDoc } from 'firebase/firestore'
+//import Navbar from "./components/Navbar";
 
 import {
   BrowserRouter as Router,
   Routes,
   Route,
+  useActionData,
 } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Paycheck from "./pages/Paycheck";
 import PaycheckBudget from "./pages/budget-pages/PaycheckBudget";
 import ErrorPage from "./pages/ErrorPage";
+import { db } from "./firebase-config";
+import UserCreate from "./components/Crud/usercreate";
+import CategoryCreate from "./components/Crud/categorycreate";
+import BudgetRead from "./components/Crud/budgetread";
 import ConfigureBudget from "./pages/budget-pages/ConfigureBudget";
 import ConfigureBudgetCategory from "./pages/budget-pages/ConfigureBudgetCategory";
 import SavingsGoalPage from "./pages/SavingsGoalPage";
@@ -18,6 +25,7 @@ import SavingsGoalPage from "./pages/SavingsGoalPage";
 
 function App() {
 
+  const username = "exampleUsername";
   return (
     <div className="App">
       <Router>
@@ -33,8 +41,22 @@ function App() {
             <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>
+      <UserCreate></UserCreate>
+      <CategoryCreate></CategoryCreate>
+      <BudgetRead username={username}></BudgetRead>
       <header className="App-header">
-
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          basic starting webpage for CS 3110
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
       </header>
     </div>
   );

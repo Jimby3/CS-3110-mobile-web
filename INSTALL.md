@@ -4,6 +4,6 @@ I think this works on windows? IM on linux rn so ???
 - npm install react-router-dom
 - npm install react-react-icons
 - npm install bootstrap
-
+- npm install firebase
 
 router - makes it so you can direct to other pages
