@@ -45,7 +45,6 @@ function App() {
       <CategoryCreate></CategoryCreate>
       <BudgetRead username={username}></BudgetRead>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           basic starting webpage for CS 3110
         </p>
