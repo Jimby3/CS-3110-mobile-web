@@ -9,22 +9,25 @@ const Navbar = () => {
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="/budget">Budget</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="/paycheck">Paycheck</a>
-                    </li>
-                </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <li className="nav-item">
+                            <a className="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/budget">Budget</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/paycheck">Paycheck</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/savings">Savings Goals</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
     );
 };
- 
+
 export default Navbar;
 
