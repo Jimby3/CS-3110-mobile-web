@@ -21,6 +21,9 @@ const Navbar = () => {
                             <a className="nav-link" href="/paycheck">Paycheck</a>
                         </li>
                         <li className="nav-item">
+                            <a className="nav-link" href="/savings">Savings Goals</a>
+                        </li>
+                        <li className="nav-item">
                             <a className="nav-link" href="/savings-goals">Savings Goals</a>
                         </li>
 
@@ -30,6 +33,6 @@ const Navbar = () => {
         </nav>
     );
 };
- 
+
 export default Navbar;
 
