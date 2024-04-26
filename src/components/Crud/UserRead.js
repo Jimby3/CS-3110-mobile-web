@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from "../../firebase-config";
 
-const UserRead = () => {
-    const usersCollectionRef = collection(db, "users")
+const UserRead = ( { userID } ) => {
+    const usersCollectionRef = collection(db, "testUser")
     const [users, setUsers] = useState([])
     useEffect(() => {
         const getUsers = async () => {
@@ -13,11 +13,11 @@ const UserRead = () => {
         };
 
     getUsers()
-  },  []);
+  },  [usersCollectionRef]);
 
   return (
     <div>
-        {users.map((user) => { return <div><h1>Name: {user.email}</h1></div>})}
+        {users.map((user) => { return <div key={user.email}><h1>Name: {user.email}</h1></div>})}
     </div>
 )
 }

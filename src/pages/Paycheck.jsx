@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import UserCreate from "../components/Crud/usercreate";
+import UserCreate from "../components/Crud/UserCreate";
  
 const Paycheck = () => {
     /*var wages = hours * hourly;

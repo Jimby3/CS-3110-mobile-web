@@ -6,7 +6,6 @@ const UserCreate = () => {
     const [newUsername, setNewUsername] = useState("")
     const [newEmail, setNewEmail] = useState("")
     const [newPassword, setNewPassword] = useState("")
-    const [users, setUsers] = useState([])
     const usersCollectionRef = collection(db, "users")
 
     const createUser = async () => {
