@@ -71,6 +71,7 @@ const ConfigureBudgetCategory = () => {
 
 
         sessionStorage.setItem("budget", JSON.stringify(budget))
+        console.log(JSON.stringify(budget))
         updateBudget(budget.categories)
         // window.location = '/configure-budget';
 

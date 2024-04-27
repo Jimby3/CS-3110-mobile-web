@@ -46,7 +46,7 @@ const updateBudgetCategories = async (categories) => {
         const budgetDocumentRef = budgetQuerySnapshot.docs[0].ref;
 
         // Reference to the categories subcollection within the budget document
-        const categoriesCollectionRef = collection(budgetDocumentRef, 'Categories');
+        const categoriesCollectionRef = collection(budgetDocumentRef, 'categories');
 
         // Delete all existing documents in the categories subcollection
         const categoryQuerySnapshot = await getDocs(categoriesCollectionRef);

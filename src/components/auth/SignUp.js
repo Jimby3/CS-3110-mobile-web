@@ -18,29 +18,52 @@ function SignUp() {
             // Get user ID from userCredential
             const { user } = userCredential;
 
-            // Create user document in Firestore
+            // Get Firestore instance
             const db = getFirestore();
-            const usersCollection = collection(db, 'users');
-            const userDocRef = await addDoc(usersCollection, {
+
+            // Reference to the 'users' collection
+            const usersCollectionRef = collection(db, 'users');
+
+            // Create a new user document in the 'users' collection
+            const userDocRef = await addDoc(usersCollectionRef, {
                 userId: user.uid, // Associate user document with user ID
                 email: user.email, // Store user's email (you can add more fields as needed)
                 // Add additional user information here
             });
 
-            // Create 'savingsGoals' subcollection
-            await addDoc(collection(userDocRef, 'savingsGoals'), {}); // Creating an empty document as a placeholder
+            // Reference to the 'budget' subcollection within the user document
+            const budgetCollectionRef = collection(userDocRef, 'budget');
 
-            // Create 'budget' subcollection
-            await addDoc(collection(userDocRef, 'budget'), {}); // Creating an empty document as a placeholder
+            // Create a new document in the 'budget' subcollection as a placeholder
+            const budgetDocRef = await addDoc(budgetCollectionRef, {});
+
+            // Reference to the 'categories' subcollection within the 'budget' document
+            const categoriesCollectionRef = collection(budgetDocRef, 'categories');
+
+            // Create a new document in the 'categories' subcollection as a placeholder
+            await addDoc(categoriesCollectionRef, {});
+
+            // Reference to the 'savingsGoals' subcollection within the user document
+            const savingsGoalsCollectionRef = collection(userDocRef, 'savingsGoals');
+
+            // Create a new document in the 'savingsGoals' subcollection as a placeholder
+            const savingsGoalsDocRef = await addDoc(savingsGoalsCollectionRef, {});
+
+            // Reference to the 'goals' subcollection within the 'savingsGoals' document
+            const goalsCollectionRef = collection(savingsGoalsDocRef, 'goals');
+
+            // Create a new document in the 'goals' subcollection as a placeholder
+            await addDoc(goalsCollectionRef, {});
 
             // User signed up successfully
-            window.location = '/'
+            window.location = '/';
         } catch (error) {
             // Handle sign-up errors
             setError(error.message);
             console.error('Error signing up:', error);
         }
     };
+
 
     return (
         <div>

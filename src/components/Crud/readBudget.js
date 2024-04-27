@@ -1,5 +1,5 @@
 import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, query, getDocs } from 'firebase/firestore';
+import {getFirestore, doc, getDoc, collection, query, where, getDocs} from 'firebase/firestore';
 
 const readBudget = async () => {
     try {
@@ -14,22 +14,48 @@ const readBudget = async () => {
         // Get Firestore instance
         const db = getFirestore();
 
-        // Reference to the 'budget' subcollection for the user
-        const budgetCollectionRef = collection(db, `users/${currentUser.uid}/budget`);
 
-        // Query the 'budget' subcollection
-        const budgetQuery = query(budgetCollectionRef);
+        // Reference to the users collection
+        const usersCollectionRef = collection(db, 'users');
 
-        // Get documents from the 'budget' subcollection
-        const budgetSnapshot = await getDocs(budgetQuery);
+        // Query for the user's document based on userID field
+        const userQuery = query(usersCollectionRef, where('userId', '==', currentUser.uid));
 
-        // Parse and return budget data
-        const budgetData = [];
-        budgetSnapshot.forEach((doc) => {
-            // Assuming each document in the 'budget' subcollection represents a budget item
-            const budgetItem = doc.data();
-            budgetData.push(budgetItem);
-        });
+        // Execute the query
+        const userQuerySnapshot = await getDocs(userQuery);
+
+        // Check if there are any matching documents
+        if (userQuerySnapshot.empty) {
+            throw new Error('No user document found for the current user.');
+        }
+
+        // Assuming there's only one document, get its reference
+        const userDocumentRef = userQuerySnapshot.docs[0].ref;
+
+        // Reference to the user's budget subcollection
+        const budgetCollectionRef = collection(userDocumentRef, 'budget');
+
+        // Query the budget subcollection
+        const budgetQuerySnapshot = await getDocs(budgetCollectionRef);
+
+        // Check if there are any documents in the budget subcollection
+        if (budgetQuerySnapshot.empty) {
+            throw new Error('No budget document found for the current user.');
+        }
+
+        // Assuming there's only one document, get its reference
+        const budgetDocumentRef = budgetQuerySnapshot.docs[0].ref;
+
+        // Get the budget document
+        const budgetDocSnapshot = await getDoc(budgetDocumentRef);
+
+        // Check if the budget document exists
+        if (!budgetDocSnapshot.exists()) {
+            throw new Error('Budget document not found for the current user.');
+        }
+
+        // Get budget data from the document
+        const budgetData = budgetDocSnapshot.data();
 
         return budgetData;
     } catch (error) {
