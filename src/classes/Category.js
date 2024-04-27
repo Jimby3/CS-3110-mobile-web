@@ -40,6 +40,14 @@ class Category {
     set dollarAmount(dollarAmount) {
         this._dollarAmount = dollarAmount;
     }
+
+    toObject() {
+        return {
+            name: this.name,
+            dollarAmount: this.dollarAmount,
+            percentage: this.percentage
+        };
+    }
 }
 
 export default Category;

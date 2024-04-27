@@ -1,13 +1,27 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Category from "../../classes/Category";
 import Budget from "../../classes/Budget";
+import {getAuth} from "firebase/auth";
+import {getFirestore} from "firebase/firestore";
+import readBudget from "../../components/Crud/readBudget";
+import updateBudgetCategories from "../../components/Crud/updateBudget";
+import updateBudget from "../../components/Crud/updateBudget";
 
 
 const ConfigureBudgetCategory = () => {
-
+    const [user, setUser] = useState(null);
     const location = useLocation();
+
+    useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+            setUser(currentUser);
+        });
+
+        return () => unsubscribe(); // Unsubscribe from the listener when component unmounts
+    }, []);
 
     const handleSubmit = (event) => {
 
@@ -16,10 +30,10 @@ const ConfigureBudgetCategory = () => {
 
         event.preventDefault();
 
-        // Retrieve stored budget from sessionStorage
-        let storedBudget = JSON.parse(sessionStorage.getItem("budget"));
-        // Instantiate a new budget if there's no stored budget
-        let budget = storedBudget ? Budget.fromJSON(storedBudget) : new Budget();
+        // Retrieve stored budget from db
+        let budgetData = readBudget()
+        let budget = Budget.fromJSON(budgetData)
+        console.log(budget)
 
 
         // Access the form data
@@ -57,7 +71,8 @@ const ConfigureBudgetCategory = () => {
 
 
         sessionStorage.setItem("budget", JSON.stringify(budget))
-        window.location = '/configure-budget';
+        updateBudget(budget.categories)
+        // window.location = '/configure-budget';
 
 
     };
