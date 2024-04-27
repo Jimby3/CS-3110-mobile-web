@@ -7,6 +7,8 @@ import updateBudgetCategories from "../../components/Crud/updateBudgetCategories
 const PaycheckBudget = () => {
 
 
+
+
     // Function to handle form submission
     const handleSubmit = (event) => {
         event.preventDefault(); // Prevent default form submission behavior
