@@ -1,5 +1,6 @@
 import React from "react";
 import './App.css';
+import {initializeApp} from "firebase/app";
 
 
 import {
@@ -15,9 +16,26 @@ import ErrorPage from "./pages/ErrorPage";
 import ConfigureBudget from "./pages/budget-pages/ConfigureBudget";
 import ConfigureBudgetCategory from "./pages/budget-pages/ConfigureBudgetCategory";
 import SavingsGoalPage from "./pages/SavingsGoalPage";
-import Login from "./pages/Login";
 import {UserProvider} from "./components/UserContext";
+import SignUpPage from "./pages/authPages/SignUpPage";
+import LogInPage from "./pages/authPages/LogInPage";
+import LogOutPage from "./pages/authPages/LogOutPage";
 
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyBHw8vTAWuO8bDbdiY5XcWSkNmsYv-eoKY",
+    authDomain: "test-88aec.firebaseapp.com",
+    projectId: "test-88aec",
+    storageBucket: "test-88aec.appspot.com",
+    messagingSenderId: "199913356923",
+    appId: "1:199913356923:web:397e34a9b5d4d5d73eacde",
+    measurementId: "G-53KLRKYKWL"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+console.log(app.name)
 
 function App() {
 
@@ -30,12 +48,14 @@ function App() {
                 <Route index element={<Home />}/>
                 <Route path="/home" element={<Home />} />
                 <Route path="/paycheck" element={<Paycheck />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<LogInPage />} />
+                <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/savings" element={<SavingsGoalPage />} />
                 <Route path="/paycheck-budget" element={<PaycheckBudget />} />
                 <Route path="/configure-budget" element={<ConfigureBudget/>} />
                 <Route path="/configure-budget-category" element={<ConfigureBudgetCategory/>} />
                 <Route path="/paycheck" element={<Paycheck />} />
+                <Route path="/logout" element={<LogOutPage />} />
                 <Route path="*" element={<ErrorPage />} />
             </Routes>
           </Router>
@@ -43,9 +63,6 @@ function App() {
           {/*<CategoryCreate></CategoryCreate>*/}
           {/*<BudgetRead username={username}></BudgetRead>*/}
           <header className="App-header">
-            <p>
-              basic starting webpage for CS 3110
-            </p>
           </header>
         </div>
       </UserProvider>
