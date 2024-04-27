@@ -43,7 +43,7 @@ const updateSavingsGoals = async (goals) => {
         // Create new documents based on the provided goals
         await Promise.all(goals.map(async (goal) => {
             // Create a new document reference within the savingsGoals subcollection
-            await addDoc(savingsGoalsCollectionRef, goal.toObject()); // Set the data for the new document
+            await addDoc(savingsGoalsCollectionRef, goal); // Set the data for the new document
         }));
 
         console.log('Savings goals updated successfully');

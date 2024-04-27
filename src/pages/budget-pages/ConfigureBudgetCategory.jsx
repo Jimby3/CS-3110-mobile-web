@@ -23,7 +23,7 @@ const ConfigureBudgetCategory = () => {
         return () => unsubscribe(); // Unsubscribe from the listener when component unmounts
     }, []);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
 
         const queryParams = new URLSearchParams(location.search);
         let index = queryParams.get('index');
@@ -31,9 +31,9 @@ const ConfigureBudgetCategory = () => {
         event.preventDefault();
 
         // Retrieve stored budget from db
-        let budgetData = readBudget()
-        let budget = Budget.fromJSON(budgetData)
+        let budget = await readBudget()
         console.log(budget)
+
 
 
         // Access the form data
@@ -71,8 +71,8 @@ const ConfigureBudgetCategory = () => {
 
 
         sessionStorage.setItem("budget", JSON.stringify(budget))
-        console.log(JSON.stringify(budget))
-        updateBudget(budget.categories)
+        console.log(budget)
+        await updateBudget(budget.categories)
         // window.location = '/configure-budget';
 
 

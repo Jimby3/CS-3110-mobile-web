@@ -45,7 +45,8 @@ class Category {
         return {
             name: this.name,
             dollarAmount: this.dollarAmount,
-            percentage: this.percentage
+            percentage: this.percentage,
+            trueDollar: this.trueDollar
         };
     }
 }
