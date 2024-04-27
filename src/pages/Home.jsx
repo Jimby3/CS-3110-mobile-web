@@ -22,10 +22,10 @@ const Home = () => {
         event.preventDefault();
 
         // Retrieve stored budget from db
-        let budgetData = await readBudget()
-        console.log("budgetData in home", budgetData)
-        let budget = Budget.fromJSON(budgetData)
-        console.log("budget in home",budget)
+        let budget = await readBudget()
+        console.log(budget)
+        console.log(JSON.stringify(budget))
+
     }
 
     return (

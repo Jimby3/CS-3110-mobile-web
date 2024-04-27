@@ -2,13 +2,23 @@ import Navbar from "../../components/Navbar";
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Budget from "../../classes/Budget";
+import updateBudget from "../../components/Crud/updateBudgetCategories";
+import {getAuth} from "firebase/auth";
+import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
 
 const ConfigureBudget = () => {
 
     // State to store the budget object
     let [budget, setBudget] = useState(new Budget());
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
+        const auth = getAuth();
+
+        const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+            setUser(currentUser);
+        });
+
         // Retrieve stored budget from sessionStorage
         let storedBudget = JSON.parse(sessionStorage.getItem("budget"));
 
@@ -18,8 +28,6 @@ const ConfigureBudget = () => {
         // Update the budget state
         setBudget(newBudget);
 
-        // Print the budget details
-        newBudget.printBudget();
     }, []);
 
     const handleEdit = (index) => {
@@ -31,7 +39,9 @@ const ConfigureBudget = () => {
         console.log(`Delete category: ${categoryName}`);
         const updatedBudget = new Budget(); // Create a new instance of Budget
         updatedBudget.categories = budget.categories.filter(category => category.name !== categoryName); // Filter out the category to be deleted
+        console.log(updatedBudget)
 
+        updateBudgetCategories(updatedBudget.categories)
         sessionStorage.setItem("budget", JSON.stringify(updatedBudget));
 
         setBudget(updatedBudget); // Update the state with the new budget object

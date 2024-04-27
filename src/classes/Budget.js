@@ -58,17 +58,22 @@ class Budget {
         const budget = new Budget();
         if (json && Array.isArray(json.categories)) {
             json.categories.forEach(categoryData => {
-                const { _name, _dollarAmount, _percentage, _trueDollar } = categoryData;
-                const newCategory = new Category(_name);
-                newCategory.dollarAmount = parseFloat(_dollarAmount); // Parse dollarAmount as a number
-                newCategory.percentage = parseFloat(_percentage); // Parse percentage as a number
-                newCategory.trueDollar = _trueDollar;
+                const { _name, name, _dollarAmount, dollarAmount, _percentage, percentage, _trueDollar, trueDollar } = categoryData;
+                const categoryName = _name || name; // Use whichever property is defined
+                const categoryDollarAmount = parseFloat(_dollarAmount || dollarAmount); // Use whichever property is defined
+                const categoryPercentage = parseFloat(_percentage || percentage); // Use whichever property is defined
+                const categoryTrueDollar = _trueDollar !== undefined ? _trueDollar : trueDollar; // Use whichever property is defined
+                const newCategory = new Category(categoryName);
+                newCategory.dollarAmount = categoryDollarAmount;
+                newCategory.percentage = categoryPercentage;
+                newCategory.trueDollar = categoryTrueDollar;
                 budget.addCategory(newCategory);
             });
         }
-
         return budget;
     }
+
+
 
     editCategoryByIndex(index, updatedCategory) {
         if (index >= 0 && index < this.categories.length) {

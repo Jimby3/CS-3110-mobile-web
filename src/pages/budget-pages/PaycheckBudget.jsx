@@ -2,6 +2,7 @@ import Navbar from "../../components/Navbar";
 import {Link} from "react-router-dom";
 import Budget from "../../classes/Budget";
 import Chart from 'chart.js/auto';
+import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
 
 const PaycheckBudget = () => {
 
@@ -27,6 +28,8 @@ const PaycheckBudget = () => {
 
         //converts dollars to % and vise versa for the budget
         let overBudget = budget.correctBudgetOffIncome()
+
+        updateBudgetCategories(budget.categories)
 
         budget.generatePieChartData()
 

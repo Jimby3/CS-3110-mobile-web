@@ -6,8 +6,8 @@ import Budget from "../../classes/Budget";
 import {getAuth} from "firebase/auth";
 import {getFirestore} from "firebase/firestore";
 import readBudget from "../../components/Crud/readBudget";
-import updateBudgetCategories from "../../components/Crud/updateBudget";
-import updateBudget from "../../components/Crud/updateBudget";
+import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
+import updateBudget from "../../components/Crud/updateBudgetCategories";
 
 
 const ConfigureBudgetCategory = () => {
@@ -72,8 +72,8 @@ const ConfigureBudgetCategory = () => {
 
         sessionStorage.setItem("budget", JSON.stringify(budget))
         console.log(budget)
-        await updateBudget(budget.categories)
-        // window.location = '/configure-budget';
+        await updateBudgetCategories(budget.categories)
+        window.location = '/configure-budget';
 
 
     };

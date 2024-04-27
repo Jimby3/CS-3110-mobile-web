@@ -52,14 +52,12 @@ const updateBudgetCategories = async (newCategories) => {
         // Fetch existing categories
         const existingCategoriesSnapshot = await getDocs(categoriesCollectionRef);
         const existingCategoriesData = existingCategoriesSnapshot.docs.map(doc => doc.data());
+
         // Map existing categories data to Category objects
-        const existingCategories = existingCategoriesData.map(data => new Category(data.name, data.percentage, data.dollarAmount, data.trueDollar));
-        console.log("Existing Categories:", existingCategories);
         console.log("New Categories", newCategories);
 
-        // Combine existing categories with new categories
-        const allCategories = [...existingCategories, ...newCategories];
-        console.log(allCategories)
+
+
 
         // Delete all existing documents in the categories subcollection
         existingCategoriesSnapshot.forEach(async (doc) => {
@@ -67,14 +65,13 @@ const updateBudgetCategories = async (newCategories) => {
         });
 
         // Create new documents based on the combined list of categories
-        await Promise.all(allCategories.map(async (category) => {
+        await Promise.all(newCategories.map(async (category) => {
             // Create a new document reference within the categories subcollection
-            try{
+            try {
                 await addDoc(categoriesCollectionRef, category.toObject());
-            } catch (error){
-
+            } catch (error) {
+                console.error('Error adding category:', error);
             }
-
         }));
 
         console.log('Budget categories updated successfully');
