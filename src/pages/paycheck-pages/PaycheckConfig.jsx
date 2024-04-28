@@ -1,7 +1,8 @@
 import React from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
+import { Link } from "react-router-dom";
 
-const Paycheck = () => {
+const PaycheckConfig = () => {
     /*var wages = hours * hourly;
     var yearly = wages * payperiods;
     var withholding = yearly - allowance;
@@ -29,20 +30,20 @@ const Paycheck = () => {
         <div>
             <Navbar></Navbar>
 
+            <p>Math</p>
             <form>
-              <label for="hoursInput">Hours Worked</label><br></br>
-              <input type="number" id="hoursInput" name="hoursInput"></input><br></br>
-              <label for="payInput">Hourly Rate</label><br></br>
-              <input type="number" id="payInput" name="payInput"></input>
-              <p>This is where the gross pay will go</p>
+                <label for="payInput">Hourly Rate</label><br></br>
+                <input type="number" id="payInput" name="payInput"></input><br></br>
+
+                <label for="payperiodInput">Payperiods per year</label><br></br>
+                <select name="payperiodInput" id="payperiodInput">
+                    <option value="weekly">Weekly - 52 per year</option>
+                    <option value="biweekly">Biweekly - 26 per year</option>
+                    <option value="monthly">Monthly - 12 per year</option>
+                    <option value="semimonthly">Semi-Monthly - 24 per year</option>
+              </select><br></br>
+
               <hr></hr>
-              <label for="payperiodInput">Payperiods per year</label><br></br>
-              <select name="payperiodInput" id="payperiodInput">
-                <option value="weekly">Weekly - 52 per year</option>
-                <option value="biweekly">Biweekly - 26 per year</option>
-                <option value="monthly">Monthly - 12 per year</option>
-                <option value="semimonthly">Semi-Monthly - 24 per year</option>
-              </select>
 
               <p>Withholding Allowence Amount - provide help icon</p>
               <label for="withholdingInput">Withholding Allowence Amount</label><br></br>
@@ -51,6 +52,7 @@ const Paycheck = () => {
               <label for="addwithholdingInput">Addtional Withholding Allowence Amount (optional)</label><br></br>
               <input type="number" id="addwithholdingInput" name="addwithholdingInput"></input>
               <hr></hr>
+
 
               <p>Estimated Yearly Income: Put explainer text</p>
               <label for="addwithholdingInput">Estimated Yearly Income:</label><br></br>
@@ -63,11 +65,14 @@ const Paycheck = () => {
               <p>Hidden Rounded</p>
               <p>Colorado FML - Checkbox</p>
               <p>If true do hours times 0.072</p>
-              <p>Final Value: </p>
+
             </form>
+            <Link to="../paycheck">
+                <button>Back to Paycheck Calc</button>
+              </Link>
 
         </div>
     );
 };
 
-export default Paycheck;
+export default PaycheckConfig;

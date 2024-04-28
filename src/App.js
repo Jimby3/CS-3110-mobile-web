@@ -10,7 +10,8 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/Home";
-import Paycheck from "./pages/Paycheck";
+import Paycheck from "./pages/paycheck-pages/Paycheck";
+import PaycheckConfig from "./pages/paycheck-pages/PaycheckConfig";
 import PaycheckBudget from "./pages/budget-pages/PaycheckBudget";
 import ErrorPage from "./pages/ErrorPage";
 import ConfigureBudget from "./pages/budget-pages/ConfigureBudget";
@@ -60,6 +61,7 @@ function App() {
                 <Route index element={<Home />}/>
                 <Route path="/home" element={<Home />} />
                 <Route path="/paycheck" element={<Paycheck />} />
+                <Route path="/paycheck-config" element={<PaycheckConfig />} />
                 <Route path="/login" element={<LogInPage />} />
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/savings" element={<SavingsGoalPage />} />
