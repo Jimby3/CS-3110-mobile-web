@@ -63,7 +63,26 @@ const PaycheckConfig = () => {
                     <option value="biweekly">Biweekly - 26 per year</option>
                     <option value="monthly">Monthly - 12 per year</option>
                     <option value="semimonthly">Semi-Monthly - 24 per year</option>
+                    <option value="annually">Annually - 1 per year</option>
+                    <option value="semiannually">Semiannually - 2 per year</option>
+                    <option value="quarterly">Quarterly - 4 per year</option>
+                    <option value="daily">Daily - 260 per year</option>
               </select><br></br>
+              <div class ="accordian" id="accordionPayperiodHelp">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Help Icon <i class="bi bi-question"></i>
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionPayperiodHelp">
+                        <div class="accordion-body">
+                            <p><strong>Help</strong></p>
+                            <p>Semimonthly means twice a month usually on the 15th and 30th<br></br>Biweekly means every other week, usually on Fridays, regardless of month</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
 
               <hr></hr>
 
@@ -83,9 +102,7 @@ const PaycheckConfig = () => {
                     <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionWithholdingHelp">
                         <div class="accordion-body">
                             <p><strong>Annual Withholding Allowence Help</strong></p>
-                            <p>Typically most users if filing you are filing jointly you will put $10,000, otherwise use $5,000</p>
-                            <p>If you have filled out form DR 0004 use that amount instead</p>
-                            <p>&nbsp;</p>
+                            <p>Typically most users if filing you are filing jointly you will put $10,000, otherwise use $5,000<br></br>If you have filled out form DR 0004 use that amount instead</p>
                             <p><strong>Addtional Witholding</strong></p>
                             <p>Most cases you will enter $0, unless you have filled out form DR 0004</p>
                         </div>
