@@ -29,8 +29,6 @@ const PaycheckConfig = () => {
     return (
         <div>
             <Navbar></Navbar>
-
-            <p>Math</p>
             <form>
                 <label for="payInput">Hourly Rate</label><br></br>
                 <input type="number" id="payInput" name="payInput"></input><br></br>
@@ -55,22 +53,29 @@ const PaycheckConfig = () => {
 
 
               <p>Estimated Yearly Income: Put explainer text</p>
-              <label for="addwithholdingInput">Estimated Yearly Income:</label><br></br>
-              <p>Math</p>
+              <p>(Wages * Payperiod Number)</p>
               <p>Total calulated witholding yearly total</p>
-              <p>Math</p>
+              <p>(Yearly - withholding allowance, if below 0, set to 0)</p>
               <hr></hr>
               <p>Hidden Value: Percentage</p>
+              <p>(Yearly allowance (above) * 0.044) - idk why lol</p>
               <p>Hidden: Payperiod Allowence - unrounded</p>
+              <p>(Percent / payperiod number)</p>
               <p>Hidden Rounded</p>
+              <p>(Percent / payperiod number)</p>
               <p>Colorado FML - Checkbox</p>
-              <p>If true do hours times 0.072</p>
+              <p>(If true do hours times 0.072, else 0)</p>
+
+              <p>Return hidden rounded + colorado FML amount</p>
 
             </form>
             <Link to="../paycheck">
                 <button>Back to Paycheck Calc</button>
               </Link>
-
+            <hr></hr>
+            <p>For more information please check: https://tax.colorado.gov/withholding-tax-guide</p>
+            <p>View Colorado's own calculator: https://tax.colorado.gov/DR1098 </p>
+            <p>Math taken from: https://tax.colorado.gov/sites/tax/files/documents/DR_1098_Withholding_Calculator_Nov_2023_Revision_for_2024.xlsx</p>
         </div>
     );
 };
