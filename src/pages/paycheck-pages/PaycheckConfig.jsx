@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import Navbar from "../../components/Navbar";
 import { Link } from "react-router-dom";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const PaycheckConfig = () => {
     const setHours = 30;
@@ -66,12 +67,32 @@ const PaycheckConfig = () => {
 
               <hr></hr>
 
-              <p>Withholding Allowence Amount - provide help icon</p>
               <label for="withholdingInput">Withholding Allowence Amount</label><br></br>
               <input type="number" id="withholdingInput" name="withholdingInput"></input><br></br>
 
               <label for="addwithholdingInput">Addtional Withholding Allowence Amount (optional)</label><br></br>
               <input type="number" id="addwithholdingInput" name="addwithholdingInput"></input>
+
+              <div class ="accordian" id="accordionWithholdingHelp">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            Help Icon <i class="bi bi-question"></i>
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionWithholdingHelp">
+                        <div class="accordion-body">
+                            <p><strong>Annual Withholding Allowence Help</strong></p>
+                            <p>Typically most users if filing you are filing jointly you will put $10,000, otherwise use $5,000</p>
+                            <p>If you have filled out form DR 0004 use that amount instead</p>
+                            <p>&nbsp;</p>
+                            <p><strong>Addtional Witholding</strong></p>
+                            <p>Most cases you will enter $0, unless you have filled out form DR 0004</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              
               <hr></hr>
 
 
@@ -98,7 +119,9 @@ const PaycheckConfig = () => {
             <p>For more information please check: https://tax.colorado.gov/withholding-tax-guide</p>
             <p>View Colorado's own calculator: https://tax.colorado.gov/DR1098 </p>
             <p>Math taken from: https://tax.colorado.gov/sites/tax/files/documents/DR_1098_Withholding_Calculator_Nov_2023_Revision_for_2024.xlsx</p>
+            
         </div>
+
     );
 };
 
