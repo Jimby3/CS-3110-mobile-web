@@ -10,7 +10,8 @@ import {
 } from "react-router-dom";
 
 import Home from "./pages/Home";
-import Paycheck from "./pages/Paycheck";
+import Paycheck from "./pages/paycheck-pages/Paycheck";
+import PaycheckConfig from "./pages/paycheck-pages/PaycheckConfig";
 import PaycheckBudget from "./pages/budget-pages/PaycheckBudget";
 import ErrorPage from "./pages/ErrorPage";
 import ConfigureBudget from "./pages/budget-pages/ConfigureBudget";
@@ -25,13 +26,13 @@ import {getAuth} from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBHw8vTAWuO8bDbdiY5XcWSkNmsYv-eoKY",
-    authDomain: "test-88aec.firebaseapp.com",
-    projectId: "test-88aec",
-    storageBucket: "test-88aec.appspot.com",
-    messagingSenderId: "199913356923",
-    appId: "1:199913356923:web:397e34a9b5d4d5d73eacde",
-    measurementId: "G-53KLRKYKWL"
+    apiKey: "AIzaSyCwR1oqnwa_t_AkKbSnpclLPd6jrUEppLE",
+    authDomain: "cs3110-74f6d.firebaseapp.com",
+    databaseURL: "https://cs3110-74f6d-default-rtdb.firebaseio.com",
+    projectId: "cs3110-74f6d",
+    storageBucket: "cs3110-74f6d.appspot.com",
+    messagingSenderId: "1050027759057",
+    appId: "1:1050027759057:web:990f9fc8182d7faed4fcf0"
 };
 
 // Initialize Firebase
@@ -60,6 +61,7 @@ function App() {
                 <Route index element={<Home />}/>
                 <Route path="/home" element={<Home />} />
                 <Route path="/paycheck" element={<Paycheck />} />
+                <Route path="/paycheck-config" element={<PaycheckConfig />} />
                 <Route path="/login" element={<LogInPage />} />
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/savings" element={<SavingsGoalPage />} />
