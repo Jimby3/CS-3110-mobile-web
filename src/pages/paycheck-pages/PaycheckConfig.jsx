@@ -48,13 +48,13 @@ const PaycheckConfig = () => {
     }
 
     const calculatedValues = paycheckMath();
-    
+
     return (
         <div>
             <Navbar></Navbar>
             <form>
                 <label for="payInput">Hourly Rate</label><br></br>
-                <input type="number" id="payInput" name="payInput"></input><br></br>
+                <input type="number" id="payInput" name="payInput" value={hourly} onChange={inputChange}></input><br></br>
 
                 <label for="payperiodInput">Payperiods per year</label><br></br>
                 <select name="payperiodInput" id="payperiodInput">
@@ -76,20 +76,19 @@ const PaycheckConfig = () => {
 
 
               <p>Estimated Yearly Income: Put explainer text</p>
-              <p>(Wages * Payperiod Number)</p>
+              <p>{calculatedValues.yearly}</p>
               <p>Total calulated witholding yearly total</p>
-              <p>(Yearly - withholding allowance, if below 0, set to 0)</p>
+              <p>{calculatedValues.withholding}</p>
               <hr></hr>
-              <p>Hidden Value: Percentage</p>
-              <p>(Yearly allowance (above) * 0.044) - idk why lol</p>
-              <p>Hidden: Payperiod Allowence - unrounded</p>
-              <p>(Percent / payperiod number)</p>
-              <p>Hidden Rounded</p>
-              <p>(Percent / payperiod number)</p>
+              <p>Hidden: Percent {calculatedValues.percentage}</p>
+              <p>Hidden: Unrounded {calculatedValues.exactAmount}</p>
+              <p>Hidden: Rounded {calculatedValues.rounded}</p>
               <p>Colorado FML - Checkbox</p>
               <p>(If true do hours times 0.072, else 0)</p>
 
               <p>Return hidden rounded + colorado FML amount</p>
+              <p>Rounded Withholding Amount: {calculatedValues.rounded}</p>
+              <p>Colorado FML Amount: {calculatedValues.roundedFML}</p>
 
             </form>
             <Link to="../paycheck">
