@@ -51,12 +51,6 @@ const updateBudgetCategories = async (newCategories) => {
 
         // Fetch existing categories
         const existingCategoriesSnapshot = await getDocs(categoriesCollectionRef);
-        const existingCategoriesData = existingCategoriesSnapshot.docs.map(doc => doc.data());
-
-        // Map existing categories data to Category objects
-        console.log("New Categories", newCategories);
-
-
 
 
         // Delete all existing documents in the categories subcollection

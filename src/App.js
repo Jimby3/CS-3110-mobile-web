@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import './App.css';
 import {initializeApp} from "firebase/app";
 
@@ -20,6 +20,7 @@ import {UserProvider} from "./components/UserContext";
 import SignUpPage from "./pages/authPages/SignUpPage";
 import LogInPage from "./pages/authPages/LogInPage";
 import LogOutPage from "./pages/authPages/LogOutPage";
+import {getAuth} from "firebase/auth";
 
 
 // Your web app's Firebase configuration
@@ -38,6 +39,17 @@ const app = initializeApp(firebaseConfig);
 console.log(app.name)
 
 function App() {
+
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+            setUser(currentUser);
+        });
+
+        return () => unsubscribe(); // Unsubscribe from the listener when component unmounts
+    }, []);
 
   // const username = "exampleUsername";
   return (
@@ -59,10 +71,8 @@ function App() {
                 <Route path="*" element={<ErrorPage />} />
             </Routes>
           </Router>
-          {/*<UserCreate></UserCreate>*/}
-          {/*<CategoryCreate></CategoryCreate>*/}
-          {/*<BudgetRead username={username}></BudgetRead>*/}
           <header className="App-header">
+              {user ? <p>Logged In As: {user.email}</p> : <p>No user signed in</p>}
           </header>
         </div>
       </UserProvider>

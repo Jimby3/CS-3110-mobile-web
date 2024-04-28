@@ -1,77 +1,52 @@
-import React, { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, collection, getDoc, getDocs, query, where } from 'firebase/firestore';
 
-function ReadIncome() {
-    const [income, setIncome] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
+const readIncome = async () => {
+    try {
         // Initialize Firebase Auth
-        const auth = getAuth();
+        const auth = await getAuth();
 
-        // Register an observer to listen for changes in authentication state
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                try {
-                    // Get Firestore instance
-                    const db = getFirestore();
+        // Get current user
+        const currentUser = auth.currentUser;
 
-                    // Reference to the users collection
-                    const usersCollectionRef = collection(db, 'users');
+        // Check if user is signed in
+        if (!currentUser) {
+            throw new Error('No user is currently signed in.');
+        }
 
-                    // Query for the user's document based on userID field
-                    const userQuery = query(usersCollectionRef, where('userId', '==', user.uid));
+        // Get Firestore instance
+        const db = getFirestore();
 
-                    // Execute the query
-                    const userQuerySnapshot = await getDocs(userQuery);
+        // Reference to the users collection
+        const usersCollectionRef = collection(db, 'users');
 
-                    // Check if there are any matching documents
-                    if (userQuerySnapshot.empty) {
-                        throw new Error('No user document found for the current user.');
-                    }
+        // Query for the user's document based on userID field
+        const userQuery = query(usersCollectionRef, where('userId', '==', currentUser.uid));
 
-                    // Assuming there's only one document, get its reference
-                    const userDocumentRef = userQuerySnapshot.docs[0].ref;
+        // Execute the query
+        const userQuerySnapshot = await getDocs(userQuery);
 
-                    // Get the user document
-                    const userDocSnapshot = await getDoc(userDocumentRef);
+        // Check if there are any matching documents
+        if (userQuerySnapshot.empty) {
+            throw new Error('No user document found for the current user.');
+        }
 
-                    if (userDocSnapshot.exists()) {
-                        const userData = userDocSnapshot.data();
-                        setIncome(userData.income);
-                    } else {
-                        throw new Error('User document does not exist.');
-                    }
-                } catch (error) {
-                    setError(error.message);
-                } finally {
-                    setLoading(false);
-                }
-            } else {
-                setLoading(false); // Set loading to false if no user is signed in
-            }
-        });
+        // Assuming there's only one document, get its reference
+        const userDocumentRef = userQuerySnapshot.docs[0].ref;
 
-        // Unsubscribe from the observer when the component unmounts
-        return () => unsubscribe();
-    }, []); // Empty dependency array to ensure the effect runs only once
+        // Get the user document
+        const userDocSnapshot = await getDoc(userDocumentRef);
 
-    if (loading) {
-        return <p>Loading...</p>;
+        if (userDocSnapshot.exists()) {
+            const userData = userDocSnapshot.data();
+            return userData.income;
+        } else {
+            throw new Error('User document does not exist.');
+        }
+    } catch (error) {
+        console.error('Error reading income:', error);
+        throw error;
     }
+};
 
-    if (error) {
-        return <p>Error: {error}</p>;
-    }
-
-    return (
-        <div>
-            <h2>Income</h2>
-            <p>User's Income: {income}</p>
-        </div>
-    );
-}
-
-export default ReadIncome;
+export default readIncome;

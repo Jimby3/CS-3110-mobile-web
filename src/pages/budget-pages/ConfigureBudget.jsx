@@ -1,56 +1,73 @@
 import Navbar from "../../components/Navbar";
-import {Link} from "react-router-dom";
-import {useEffect, useState} from "react";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Budget from "../../classes/Budget";
-import updateBudget from "../../components/Crud/updateBudgetCategories";
-import {getAuth} from "firebase/auth";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
+import readBudget from "../../components/Crud/readBudget";
 
 const ConfigureBudget = () => {
-
     // State to store the budget object
-    let [budget, setBudget] = useState(new Budget());
+    const [budget, setBudget] = useState(null);
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const auth = getAuth();
+        const fetchBudget = async () => {
+            try {
+                // Get Firebase Auth instance
+                const auth = getAuth();
 
-        const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-            setUser(currentUser);
-        });
+                // Listen for changes in authentication state
+                const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+                    if (currentUser) {
+                        // Fetch the budget from the database
+                        const budgetData = await readBudget();
 
-        // Retrieve stored budget from sessionStorage
-        let storedBudget = JSON.parse(sessionStorage.getItem("budget"));
+                        // Update the budget state
+                        setBudget(budgetData);
+                    } else {
+                        console.log('No user is currently signed in.');
+                    }
+                });
 
-        // Instantiate a new budget if there's no stored budget
-        let newBudget = storedBudget ? Budget.fromJSON(storedBudget) : new Budget();
+                // Unsubscribe from the listener when the component unmounts
+                return () => unsubscribe();
+            } catch (error) {
+                console.error('Error fetching budget:', error);
+            }
+        };
 
-        // Update the budget state
-        setBudget(newBudget);
-
-    }, []);
+        // Call the fetchBudget function when the component mounts
+        fetchBudget();
+    }, []); // Empty dependency array to ensure the effect runs only once
+    // Empty dependency array to ensure the effect runs only once
 
     const handleEdit = (index) => {
         // Implement edit functionality
         window.location = `/configure-budget-category?index=${index}`;
     };
 
-    const handleDelete = (categoryName) => {
+    const handleDelete = async (categoryName) => {
         console.log(`Delete category: ${categoryName}`);
-        const updatedBudget = new Budget(); // Create a new instance of Budget
-        updatedBudget.categories = budget.categories.filter(category => category.name !== categoryName); // Filter out the category to be deleted
-        console.log(updatedBudget)
+        try {
+            const updatedCategories = budget.categories.filter(category => category.name !== categoryName);
 
-        updateBudgetCategories(updatedBudget.categories)
-        sessionStorage.setItem("budget", JSON.stringify(updatedBudget));
+            // Update the budget categories in the database
+            await updateBudgetCategories(updatedCategories);
 
-        setBudget(updatedBudget); // Update the state with the new budget object
+            // Update the budget state with the new categories
+            setBudget(prevBudget => ({
+                ...prevBudget,
+                categories: updatedCategories
+            }));
+        } catch (error) {
+            console.error('Error deleting category:', error);
+        }
     };
-
 
     return (
         <div>
-            <Navbar/>
+            <Navbar />
             <h1>Budget Configuration</h1>
             {/* Render categories if budget is available */}
             {budget && (
@@ -75,7 +92,7 @@ const ConfigureBudget = () => {
                 <button>Add New</button>
             </Link>
             <Link to="/paycheck-budget">
-                <button>Cancel</button>
+                <button>Go Back</button>
             </Link>
         </div>
     );

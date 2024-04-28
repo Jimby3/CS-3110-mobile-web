@@ -93,7 +93,7 @@ class Budget {
 
 
     // this takes the categories that are filled with a percentage or dollar amount and fills the other respectively
-    correctBudgetOffIncome() {
+    correctBudgetOffIncome(income) {
 
         let overBudget = false;
 
@@ -108,10 +108,10 @@ class Budget {
         this.categories.forEach(category => {
             if (category.trueDollar === true) {
                 // Set percentage based on dollars
-                category.percentage = (category.dollarAmount / this.income) * 100;
+                category.percentage = (category.dollarAmount / income) * 100;
             } else {
                 // Set dollars based on percentage
-                category.dollarAmount = (category.percentage / 100) * this.income;
+                category.dollarAmount = (category.percentage / 100) * income;
             }
         });
 

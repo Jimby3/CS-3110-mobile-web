@@ -28,7 +28,7 @@ function SignUp() {
             const userDocRef = await addDoc(usersCollectionRef, {
                 userId: user.uid, // Associate user document with user ID
                 email: user.email, // Store user's email (you can add more fields as needed)
-                income: 0
+                income: 500
             });
 
             // Reference to the 'budget' subcollection within the user document

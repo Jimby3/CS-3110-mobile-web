@@ -67,15 +67,12 @@ const readBudget = async () => {
         // Extract category data from the query snapshot
         const categoriesData = categoriesQuerySnapshot.docs.map(doc => doc.data());
 
-        console.log("in read", categoriesData)
 
         // Convert budgetData and categoriesData into a Budget object
         const budget = Budget.fromJSON({
             categories: categoriesData, // Pass categories data directly
             ...budgetData // Pass other budget data
         });
-
-        console.log("in read", budget)
 
         return budget;
     } catch (error) {

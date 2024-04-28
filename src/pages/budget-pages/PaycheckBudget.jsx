@@ -1,78 +1,49 @@
 import Navbar from "../../components/Navbar";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Budget from "../../classes/Budget";
 import Chart from 'chart.js/auto';
 import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
+import readBudget from "../../components/Crud/readBudget";
+import readIncome from "../../components/Crud/readIncome";
+import { useState, useEffect } from "react";
 
 const PaycheckBudget = () => {
+    const [income, setIncome] = useState(null); // State to store the user's income
+    const [budget, setBudget] = useState(null); // State to store the user's budget
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Fetch the income and budget from the database
+                const userIncome = await readIncome();
+                const userBudget = await readBudget();
 
+                // Update the income and budget states
+                setIncome(userIncome);
+                setBudget(userBudget);
 
+                // Generate and display the pie chart using the budget
+                userBudget.createPieChart();
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
 
-    // Function to handle form submission
-    const handleSubmit = (event) => {
-        event.preventDefault(); // Prevent default form submission behavior
-
-
-
-        // Retrieve stored budget from sessionStorage
-        let storedBudget = JSON.parse(sessionStorage.getItem("budget"));
-        console.log(storedBudget)
-
-        // Instantiate a new budget if there's no stored budget
-        let budget = Budget.fromJSON(storedBudget);
-
-        const formData = new FormData(event.target)
-        let income = formData.get('incomeInput')
-        console.log(income)
-
-        budget.income = income
-
-        //converts dollars to % and vise versa for the budget
-        let overBudget = budget.correctBudgetOffIncome()
-
-        updateBudgetCategories(budget.categories)
-
-        budget.generatePieChartData()
-
-        sessionStorage.setItem("budget", JSON.stringify(budget))
-
-
-
-        const chartInstance = Chart.getChart("pie-chart")
-
-        if (chartInstance){
-            chartInstance.destroy()
-        }
-
-
-        budget.createPieChart()
-
-        if (overBudget){
-            window.window.alert("Categories Over 100%, Please reconfigure Categories")
-        }
-
-
-
-    };
+        // Call the fetchData function when the component mounts
+        fetchData();
+    }, []);
 
     return (
         <div>
-            <Navbar/>
+            <Navbar />
             <h1>Budget</h1>
 
-
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="incomeInput">Enter Your Income:</label>
-                <input type="number" id="incomeInput" name="incomeInput" required/>
-                <button type="submit">Submit</button>
-            </form>
+            <p>Your income is: ${income}</p> {/* Display the user's income */}
 
             <Link to="../configure-budget">
                 <button>Configure Budget</button>
             </Link>
             <canvas id="pie-chart" width="400" height="400"></canvas>
-
         </div>
     );
 };

@@ -7,76 +7,81 @@ import {getAuth} from "firebase/auth";
 import {getFirestore} from "firebase/firestore";
 import readBudget from "../../components/Crud/readBudget";
 import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
-import updateBudget from "../../components/Crud/updateBudgetCategories";
 
 
 const ConfigureBudgetCategory = () => {
     const [user, setUser] = useState(null);
     const location = useLocation();
+    const [budget, setBudget] = useState(null);
 
     useEffect(() => {
-        const auth = getAuth();
-        const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-            setUser(currentUser);
-        });
+        const fetchBudget = async () => {
+            try {
+                // Get Firebase Auth instance and current user
+                const auth = await getAuth();
+                const currentUser = auth.currentUser;
 
-        return () => unsubscribe(); // Unsubscribe from the listener when component unmounts
-    }, []);
+                if (!currentUser) {
+                    throw new Error('No user is currently signed in.');
+                }
+
+                // Fetch the budget from the database
+                const budgetData = await readBudget()
+
+                // Update the budget state
+                setBudget(budgetData);
+            } catch (error) {
+                console.error('Error fetching budget:', error);
+            }
+        };
+
+        // Call the fetchBudget function when the component mounts
+        fetchBudget();
+
+    }, []); // Empty dependency array to ensure the effect runs only once
 
     const handleSubmit = async (event) => {
-
-        const queryParams = new URLSearchParams(location.search);
-        let index = queryParams.get('index');
-
         event.preventDefault();
 
-        // Retrieve stored budget from db
-        let budget = await readBudget()
-        console.log(budget)
-
-
+        // Retrieve stored budget from the database
+        let budget = await readBudget();
 
         // Access the form data
         const formData = new FormData(event.target);
+        const categoryName = formData.get('categoryName');
+        const amountType = formData.get('amountType');
+        const amount = parseFloat(formData.get('budgetAmount'));
 
-        let amountType = formData.get('amountType')
-        let amount = formData.get('budgetAmount')
+        // Create a new category object
+        let category = new Category(categoryName);
 
-        // Assign Form Data to a Category Object
-        let category = new Category(formData.get('categoryName'))
-
-        // Putting either the dollar amount or percentage amount into the category object
-        if(amountType === 'dollars'){
-
-            category.dollarAmount = amount
-            category.trueDollar = true
-
-
+        // Set the dollar amount or percentage based on the selected type
+        if (amountType === 'dollars') {
+            category.dollarAmount = amount;
+            category.trueDollar = true;
         } else {
-
-            category.percentage = amount
-
+            category.percentage = amount;
         }
 
-        // if index is passed, edit instead of making a new category
-        if(index){
+        // Check if editing an existing category by index
+        const queryParams = new URLSearchParams(location.search);
+        const index = queryParams.get('index');
 
-            budget.editCategoryByIndex(index, category)
-
+        if (index !== null) {
+            // Editing an existing category
+            budget.editCategoryByIndex(index, category);
         } else {
-
-            budget.addCategory(category)
-
+            // Adding a new category
+            budget.addCategory(category);
         }
 
+        // Update the budget categories in the database
+        await updateBudgetCategories(budget.categories);
 
-        sessionStorage.setItem("budget", JSON.stringify(budget))
-        console.log(budget)
-        await updateBudgetCategories(budget.categories)
+        // Navigate back to the budget configuration page
         window.location = '/configure-budget';
-
-
     };
+
 
 
     return (

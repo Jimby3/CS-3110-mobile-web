@@ -46,12 +46,10 @@ const Home = () => {
                 <Link to="/login">
                     <button>Login</button>
                 </Link>
-                {user ? <p>Logged In As: {user.email}</p> : <p>No user signed in</p>}
             </div>
             <form onSubmit={handleSubmit}>
                 <button type="submit">Testing Button</button>
             </form>
-            <ReadIncome></ReadIncome>
         </div>
     );
 };
