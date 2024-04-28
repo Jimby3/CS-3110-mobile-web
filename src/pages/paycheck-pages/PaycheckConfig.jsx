@@ -54,20 +54,25 @@ const PaycheckConfig = () => {
         <div>
             <Navbar></Navbar>
             <form>
-                <label for="payInput">Hourly Rate</label><br></br>
-                <input type="number" id="payInput" name="payInput" value={hourly} onChange={inputChange}></input><br></br>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">$</span>
+                  <input type="number" class="form-control" id="payInput" aria-label="Hourly Pay in USD" placeholder="Hourly Pay" onChange={inputChange}></input>
+                </div>
 
-                <label for="payperiodInput">Payperiods per year</label><br></br>
-                <select name="payperiodInput" id="payperiodInput">
-                    <option value="weekly">Weekly - 52 per year</option>
-                    <option value="biweekly">Biweekly - 26 per year</option>
-                    <option value="monthly">Monthly - 12 per year</option>
-                    <option value="semimonthly">Semi-Monthly - 24 per year</option>
-                    <option value="annually">Annually - 1 per year</option>
-                    <option value="semiannually">Semiannually - 2 per year</option>
-                    <option value="quarterly">Quarterly - 4 per year</option>
-                    <option value="daily">Daily - 260 per year</option>
-              </select><br></br>
+                <div class="mb-3">
+                    <label for="payperiodInput" class="form-label">Number of Payperiods</label>
+                    <select class="form-select" id="payperiodInput">
+                        <option selected>Number of Payperiods</option>
+                        <option value="260">Daily - 260 per year</option>
+                        <option value="52">Weekly - 52 per year</option>
+                        <option value="26">Biweekly - 26 per year</option>
+                        <option value="24">Semimonthly - 24 per year</option>
+                        <option value="12">Monthly - 12 per year</option>
+                        <option value="4">Quarterly - 4 per year</option>
+                        <option value="2">Semiannually - 2 per year</option>
+                        <option value="1">Annually - 1 per year</option>
+                    </select>
+                </div>
               <div class ="accordian" id="accordionPayperiodHelp">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
@@ -86,12 +91,14 @@ const PaycheckConfig = () => {
 
               <hr></hr>
 
-              <label for="withholdingInput">Withholding Allowence Amount</label><br></br>
-              <input type="number" id="withholdingInput" name="withholdingInput"></input><br></br>
-
-              <label for="addwithholdingInput">Addtional Withholding Allowence Amount (optional)</label><br></br>
-              <input type="number" id="addwithholdingInput" name="addwithholdingInput"></input>
-
+              <div class="input-group mb-3">
+                  <span class="input-group-text">$</span>
+                  <input type="number" class="form-control" id="withholdingInput" aria-label="Withholding Allowence Amount" placeholder="Withholding Allowence Amount" onChange={inputChange}></input>
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">$</span>
+                  <input type="number" class="form-control" id="addwithholdingInput" aria-label="Addtional Withholding Allowence Amount (optional)" placeholder="Addtional Withholding Allowence Amount (optional)" onChange={inputChange}></input>
+                </div>
               <div class ="accordian" id="accordionWithholdingHelp">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
@@ -114,7 +121,11 @@ const PaycheckConfig = () => {
 
 
               <p>Estimated Yearly Income: Put explainer text</p>
-              <p>{calculatedValues.yearly}</p>
+              <div class="input-group mb-3">
+                  <span class="input-group-text">$</span>
+                  <input type="number" class="form-control" id="yearlyTotal" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income" value={calculatedValues.yearly} readonly></input>
+            </div>
+            
               <p>Total calulated witholding yearly total</p>
               <p>{calculatedValues.withholding}</p>
               <hr></hr>
@@ -126,7 +137,19 @@ const PaycheckConfig = () => {
 
               <p>Return hidden rounded + colorado FML amount</p>
               <p>Rounded Withholding Amount: {calculatedValues.rounded}</p>
+              <div class="input-group mb-3">
+                  <span class="input-group-text">$</span>
+                  <input type="number" class="form-control" id="withholdingDisplay" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income" value={calculatedValues.yearly} readonly></input>
+            </div>
               <p>Colorado FML Amount: {calculatedValues.roundedFML}</p>
+              <div class="input-group mb-3">
+                  <span class="input-group-text">$</span>
+                  <input type="number" class="form-control" id="withholdingDisplay" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income" value={calculatedValues.yearly} readonly></input>
+            </div>
+            <div class="input-group mb-3">
+                  <span class="input-group-text">$</span>
+                  <input type="number" class="form-control" id="withholdingDisplay" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income" value={calculatedValues.yearly} readonly></input>
+            </div>
 
             </form>
             <Link to="../paycheck">
