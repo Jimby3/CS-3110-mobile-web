@@ -1,19 +1,34 @@
-import React from "react";
+class SavingsGoals {
+    constructor() {
+        this.goals = [];
+    }
 
-class SavingsGoals extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            newGoal: "",
-            existingCategory: "",
-            goalAmount: "",
-            contribution: "",
-            existingGoals: [],
-        };
+    // Method to add a new savings goal
+    addGoal(goal) {
+        this.goals.push(goal);
     }
-    render(){
-        return null;
+
+    // Method to remove a savings goal by category
+    removeGoalByCategory(category) {
+        this.goals = this.goals.filter(goal => goal.category !== category);
     }
+
+    // Method to update a savings goal by category
+    updateGoalByCategory(category, updatedGoal) {
+        const index = this.goals.findIndex(goal => goal.category === category);
+        if (index !== -1) {
+            this.goals[index] = updatedGoal;
+        } else {
+            throw new Error("Goal not found");
+        }
+    }
+
+    // Method to get a savings goal by category
+    getGoalByCategory(category) {
+        return this.goals.find(goal => goal.category === category);
+    }
+
+
 }
 
 export default SavingsGoals;
