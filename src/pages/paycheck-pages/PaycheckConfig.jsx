@@ -1,31 +1,54 @@
-import React from "react";
+import React, {useState} from "react";
 import Navbar from "../../components/Navbar";
 import { Link } from "react-router-dom";
 
 const PaycheckConfig = () => {
-    /*var wages = hours * hourly;
-    var yearly = wages * payperiods;
-    var withholding = yearly - allowance;
-    var percentage = withholding * 0.044;
-    var excatAmount = percentage  / payperiods;
-    var coloradoFML = hours * 0.072;
-    var rounded = excatAmount.toFixed(2);
-    var roundedFML = coloradoFML.toFixed(2);
-    */
-   var setHours = 0;
-   const hours = 0;
-   var setHourly = 0;
-   var setPayperiods = 0;
-   var setAllowance = 0;
-   var setAddAllowance = 0;
+    const setHours = 30;
+    const [hourly, setHourly] = useState(0);
+    const [payperiods, setPayperiods] = useState(26); // Default to biweekly
+    const [allowance, setAllowance] = useState(0);
+    const [addAllowance, setAddAllowance] = useState(0);
 
-    const paycheckMath = async () => {
+    const paycheckMath = async () => { 
+        const wages = setHours * setHourly;
+        const yearly = wages * payperiods;
+        const withholding = Math.max(yearly - setAllowance, 0);
+        const percentage = withholding * 0.044;
+        const exactAmount = percentage / payperiods;
+        const coloradoFML = setHours * 0.072;
+        const rounded = exactAmount.toFixed(2);
+        const roundedFML = coloradoFML.toFixed(2);
+
+        return {
+            rounded,
+            roundedFML
+        };
+    }
+
+    const inputChange = (event) => {
+        const { name, value } = event.target;
+
+        switch (name) {
+            case "payInput":
+                setHourly(parseFloat(value));
+                break;
+            case "payperiodInput":
+                setPayperiods(parseInt(value));
+                break;
+            case "withholdingInput":
+                setAllowance(parseFloat(value));
+                break;
+            case "addwithholdingInput":
+                setAddAllowance(parseFloat(value));
+                break;
+            default:
+                break;
+        }
 
     }
 
-
-    paycheckMath();
-
+    const calculatedValues = paycheckMath();
+    
     return (
         <div>
             <Navbar></Navbar>
