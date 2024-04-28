@@ -1,7 +1,6 @@
 import Navbar from "../../components/Navbar";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Budget from "../../classes/Budget";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
 import readBudget from "../../components/Crud/readBudget";
@@ -9,7 +8,6 @@ import readBudget from "../../components/Crud/readBudget";
 const ConfigureBudget = () => {
     // State to store the budget object
     const [budget, setBudget] = useState(null);
-    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const fetchBudget = async () => {

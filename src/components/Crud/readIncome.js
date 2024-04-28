@@ -1,4 +1,4 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, getDoc, getDocs, query, where } from 'firebase/firestore';
 
 const readIncome = async () => {

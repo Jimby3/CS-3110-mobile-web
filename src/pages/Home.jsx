@@ -2,15 +2,10 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
-import readBudget from "../components/Crud/readBudget";
-import Budget from "../classes/Budget";
-import readIncome from "../components/Crud/readIncome";
-import ReadIncome from "../components/Crud/readIncome";
-import {IoNavigateCircle} from "react-icons/io5";
-import updateIncome from "../components/Crud/updateIncome";
 
 const Home = () => {
     const [user, setUser] = useState(null);
+    console.log(user)
 
     useEffect(() => {
         const auth = getAuth();
@@ -25,7 +20,7 @@ const Home = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        await updateIncome(400)
+        // ability to test any funcs
 
     }
 

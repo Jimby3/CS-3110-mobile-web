@@ -1,8 +1,5 @@
 import Navbar from "../../components/Navbar";
 import { Link } from "react-router-dom";
-import Budget from "../../classes/Budget";
-import Chart from 'chart.js/auto';
-import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
 import readBudget from "../../components/Crud/readBudget";
 import readIncome from "../../components/Crud/readIncome";
 import { useState, useEffect } from "react";
@@ -10,6 +7,7 @@ import { useState, useEffect } from "react";
 const PaycheckBudget = () => {
     const [income, setIncome] = useState(null); // State to store the user's income
     const [budget, setBudget] = useState(null); // State to store the user's budget
+    console.log(budget)
 
     useEffect(() => {
         const fetchData = async () => {

@@ -1,5 +1,5 @@
-import { getAuth } from 'firebase/auth';
-import {getFirestore, doc, getDoc, collection, query, where, getDocs} from 'firebase/firestore';
+import {getAuth} from 'firebase/auth';
+import {collection, getDoc, getDocs, getFirestore, query, where} from 'firebase/firestore';
 import Budget from "../../classes/Budget";
 
 const readBudget = async () => {
@@ -69,12 +69,10 @@ const readBudget = async () => {
 
 
         // Convert budgetData and categoriesData into a Budget object
-        const budget = Budget.fromJSON({
+        return Budget.fromJSON({
             categories: categoriesData, // Pass categories data directly
             ...budgetData // Pass other budget data
         });
-
-        return budget;
     } catch (error) {
         console.error('Error reading budget:', error);
         throw error;

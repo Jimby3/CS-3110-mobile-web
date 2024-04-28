@@ -1,6 +1,5 @@
 import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, doc, getDoc, updateDoc, getDocs, query, where, deleteDoc, addDoc } from 'firebase/firestore';
-import Category from "../../classes/Category";
+import { getFirestore, collection, getDocs, query, where, deleteDoc, addDoc } from 'firebase/firestore';
 
 const updateBudgetCategories = async (newCategories) => {
     try {
