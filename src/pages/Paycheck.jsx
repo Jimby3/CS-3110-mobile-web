@@ -30,56 +30,40 @@ const Paycheck = () => {
             <Navbar></Navbar>
 
             <form>
-        <label for="hoursWorked">Hours Worked</label><br></br>
-              <input type="text"
-                id="hoursWorked"
-                name="hoursWorked"
-                value="Aa"
-                onChange={event => {
-                  setHours(event.target.value);
-                }}>
-              </input><br></br>
-              <p>{hours}</p>
+              <label for="hoursInput">Hours Worked</label><br></br>
+              <input type="number" id="hoursInput" name="hoursInput"></input><br></br>
+              <label for="payInput">Hourly Rate</label><br></br>
+              <input type="number" id="payInput" name="payInput"></input>
+              <p>This is where the gross pay will go</p>
+              <hr></hr>
+              <label for="payperiodInput">Payperiods per year</label><br></br>
+              <select name="payperiodInput" id="payperiodInput">
+                <option value="weekly">Weekly - 52 per year</option>
+                <option value="biweekly">Biweekly - 26 per year</option>
+                <option value="monthly">Monthly - 12 per year</option>
+                <option value="semimonthly">Semi-Monthly - 24 per year</option>
+              </select>
 
-              <label for="hourlyRate">Hourly Rate:</label><br></br>
-              <input type="text"
-                id="hourlyRate"
-                name="hourlyRate"
-                value="Aa"
-                onChange={event => {
-                  setHourly(event.target.value);
-                }}>
-              </input><br></br>
-              <p>"Aa"</p>
+              <p>Withholding Allowence Amount - provide help icon</p>
+              <label for="withholdingInput">Withholding Allowence Amount</label><br></br>
+              <input type="number" id="withholdingInput" name="withholdingInput"></input><br></br>
+
+              <label for="addwithholdingInput">Addtional Withholding Allowence Amount (optional)</label><br></br>
+              <input type="number" id="addwithholdingInput" name="addwithholdingInput"></input>
               <hr></hr>
 
-              <label for="payperiods">Payperiods Per Year:</label><br></br>
-              <input type="text"
-                id="payperiods"
-                name="payperiods"
-                value="Aa"
-                onChange={event => {
-                  setPayperiods(event.target.value);
-                }}>
-              </input><br></br>
-
-              <label for="allowance">Allowance:</label><br></br>
-              <input type="text"
-                id="allowance"
-                name="allowance"
-                value="Aa"
-                onChange={event => {
-                  setAllowance(event.target.value);
-                }}></input>
-
-              <label for="addAllowance">Additional Allowance:</label><br></br>
-              <input type="text"
-                id="addAllowance"
-                name="addAllowance"
-                value="Aa"
-                onChange={event => {
-                  setAddAllowance(event.target.value);
-                }}></input><br></br>
+              <p>Estimated Yearly Income: Put explainer text</p>
+              <label for="addwithholdingInput">Estimated Yearly Income:</label><br></br>
+              <p>Math</p>
+              <p>Total calulated witholding yearly total</p>
+              <p>Math</p>
+              <hr></hr>
+              <p>Hidden Value: Percentage</p>
+              <p>Hidden: Payperiod Allowence - unrounded</p>
+              <p>Hidden Rounded</p>
+              <p>Colorado FML - Checkbox</p>
+              <p>If true do hours times 0.072</p>
+              <p>Final Value: </p>
             </form>
 
         </div>
