@@ -29,6 +29,7 @@ const PaycheckBudget = () => {
                         setIncome(income);
 
                         budgetData.correctBudgetOffIncome(income)
+                        setBudget(budgetData);
 
                         try {
                           let canvas = document.getElementById("pie-chart");
@@ -60,7 +61,7 @@ const PaycheckBudget = () => {
 
     return (
         <div>
-            <Navbar />
+            <Navbar/>
             <h1>Budget</h1>
 
             <p>Your income is: ${income}</p> {/* Display the user's income */}
@@ -69,8 +70,21 @@ const PaycheckBudget = () => {
                 <button>Configure Budget</button>
             </Link>
             <canvas id="pie-chart" width="400" height="400"></canvas>
+            <br></br>
+            <ul>
+                {budget && budget.categories.map((category, index) => (
+                    <li key={index}>
+                        <div>
+                            <strong>{category.name}:</strong>
+                            <strong> $</strong>{category.dollarAmount.toFixed(2)}
+                            <strong> |</strong> {category.percentage.toFixed(2)}%
+                        </div>
+                    </li>
+                ))}
+            </ul>
         </div>
-    );
+    )
+        ;
 };
 
 export default PaycheckBudget;

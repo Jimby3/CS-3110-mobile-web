@@ -78,8 +78,8 @@ const ConfigureBudget = () => {
                             <li key={index}>
                                 <div>
                                     <strong>Category:</strong> {category.name}
-                                    <strong>$:</strong> {category.dollarAmount}
-                                    <strong>%:</strong> {category.percentage}
+                                    <strong> $</strong>{category.dollarAmount.toFixed(2)}
+                                    <strong> |</strong> {category.percentage.toFixed(2)}%
                                     <button onClick={() => handleEdit(index)}>Edit</button>
                                     <button onClick={() => handleDelete(category.name)}>Delete</button>
                                 </div>
