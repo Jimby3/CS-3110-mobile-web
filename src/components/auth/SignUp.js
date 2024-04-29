@@ -33,7 +33,8 @@ function SignUp() {
                 hourlyPay: 16,
                 payPeriods: 2,
                 withholding: 20,
-                additionalWithholding: 5
+                additionalWithholding: 5,
+                colorado: true
 
             });
 
