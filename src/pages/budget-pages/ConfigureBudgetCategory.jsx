@@ -7,6 +7,7 @@ import {getAuth} from "firebase/auth";
 import {getFirestore} from "firebase/firestore";
 import readBudget from "../../components/Crud/readBudget";
 import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
+import readIncome from "../../components/Crud/readIncome";
 
 
 const ConfigureBudgetCategory = () => {
@@ -74,6 +75,8 @@ const ConfigureBudgetCategory = () => {
             // Adding a new category
             budget.addCategory(category);
         }
+
+        budget.correctBudgetOffIncome(await readIncome())
 
         // Update the budget categories in the database
         await updateBudgetCategories(budget.categories);

@@ -3,33 +3,60 @@ import { Link } from "react-router-dom";
 import readBudget from "../../components/Crud/readBudget";
 import readIncome from "../../components/Crud/readIncome";
 import { useState, useEffect } from "react";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
+import Chart from "chart.js/auto";
+import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
 
 const PaycheckBudget = () => {
     const [income, setIncome] = useState(null); // State to store the user's income
     const [budget, setBudget] = useState(null); // State to store the user's budget
-    console.log(budget)
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchBudget = async () => {
             try {
-                // Fetch the income and budget from the database
-                const userIncome = await readIncome();
-                const userBudget = await readBudget();
+                // Get Firebase Auth instance
+                const auth = getAuth();
 
-                // Update the income and budget states
-                setIncome(userIncome);
-                setBudget(userBudget);
+                // Listen for changes in authentication state
+                const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+                    if (currentUser) {
+                        // Fetch the budget from the database
+                        const budgetData = await readBudget();
+                        let income = await readIncome()
 
-                // Generate and display the pie chart using the budget
-                userBudget.createPieChart();
+                        // Update the budget state
+                        setBudget(budgetData);
+                        setIncome(income);
+
+                        budgetData.correctBudgetOffIncome(income)
+
+                        try {
+                          let canvas = document.getElementById("pie-chart");
+                          let chartInstance = Chart.getChart(canvas);
+                          chartInstance.destroy()
+                        } catch (error){
+                            console.log("cannot destroy chart, no instance found.")
+                        }
+
+                        // Generate and display the pie chart using the budget
+                        budgetData.createPieChart();
+                        await updateBudgetCategories(budgetData.categories)
+                    } else {
+                        console.log('No user is currently signed in.');
+                    }
+                });
+
+                // Unsubscribe from the listener when the component unmounts
+                return () => unsubscribe();
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Error fetching budget:', error);
             }
         };
 
-        // Call the fetchData function when the component mounts
-        fetchData();
-    }, []);
+        // Call the fetchBudget function when the component mounts
+        fetchBudget();
+    }, []); // Empty dependency array to ensure the effect runs only once
+
 
     return (
         <div>

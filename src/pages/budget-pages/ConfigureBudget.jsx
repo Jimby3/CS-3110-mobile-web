@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
 import readBudget from "../../components/Crud/readBudget";
+import readIncome from "../../components/Crud/readIncome";
 
 const ConfigureBudget = () => {
     // State to store the budget object
@@ -62,6 +63,7 @@ const ConfigureBudget = () => {
             console.error('Error deleting category:', error);
         }
     };
+
 
     return (
         <div>
