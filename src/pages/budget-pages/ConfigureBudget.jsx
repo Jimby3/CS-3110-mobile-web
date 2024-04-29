@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
 import readBudget from "../../components/Crud/readBudget";
+import Budget from "../../classes/Budget";
+import '../../css/styles.css';
 import readIncome from "../../components/Crud/readIncome";
 
 const ConfigureBudget = () => {
@@ -67,12 +69,12 @@ const ConfigureBudget = () => {
 
     return (
         <div>
-            <Navbar />
-            <h1>Budget Configuration</h1>
+            <Navbar/>
+            <h1 className="header">Budget Configuration</h1>
             {/* Render categories if budget is available */}
             {budget && (
                 <div>
-                    <h2>Categories:</h2>
+                    <h2 className="header">Categories:</h2>
                     <ul>
                         {budget.categories.map((category, index) => (
                             <li key={index}>
@@ -89,10 +91,10 @@ const ConfigureBudget = () => {
                 </div>
             )}
             <Link to="/configure-budget-category">
-                <button>Add New</button>
+                <button className="button">Add New</button>
             </Link>
             <Link to="/paycheck-budget">
-                <button>Go Back</button>
+                <button className="button">Go Back</button>
             </Link>
         </div>
     );

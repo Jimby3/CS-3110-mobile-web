@@ -1,5 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import '../css/styles.css';
 
 const Navbar = () => {
     return (

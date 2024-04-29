@@ -16,12 +16,14 @@ import PaycheckBudget from "./pages/budget-pages/PaycheckBudget";
 import ErrorPage from "./pages/ErrorPage";
 import ConfigureBudget from "./pages/budget-pages/ConfigureBudget";
 import ConfigureBudgetCategory from "./pages/budget-pages/ConfigureBudgetCategory";
-import SavingsGoalPage from "./pages/SavingsGoalPage";
+import SavingsGoalPage from "./pages/savings-pages/SavingsGoalPage";
+import './css/styles.css';
 import {UserProvider} from "./components/UserContext";
 import SignUpPage from "./pages/authPages/SignUpPage";
 import LogInPage from "./pages/authPages/LogInPage";
 import LogOutPage from "./pages/authPages/LogOutPage";
 import {getAuth} from "firebase/auth";
+import ModifyGoalPage from "./pages/savings-pages/ModifyGoalPage";
 
 
 // Your web app's Firebase configuration
@@ -65,6 +67,7 @@ function App() {
                 <Route path="/login" element={<LogInPage />} />
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/savings" element={<SavingsGoalPage />} />
+                <Route path="/modify-goal" element={<ModifyGoalPage />} />
                 <Route path="/paycheck-budget" element={<PaycheckBudget />} />
                 <Route path="/configure-budget" element={<ConfigureBudget/>} />
                 <Route path="/configure-budget-category" element={<ConfigureBudgetCategory/>} />

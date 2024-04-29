@@ -1,10 +1,12 @@
 import Navbar from "../../components/Navbar";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import Budget from "../../classes/Budget";
+import Chart from 'chart.js/auto';
+import '../../css/styles.css';
 import readBudget from "../../components/Crud/readBudget";
 import readIncome from "../../components/Crud/readIncome";
 import { useState, useEffect } from "react";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
-import Chart from "chart.js/auto";
 import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
 
 const PaycheckBudget = () => {
@@ -62,12 +64,11 @@ const PaycheckBudget = () => {
     return (
         <div>
             <Navbar/>
-            <h1>Budget</h1>
-
+            <h1 className="header">Budget</h1>
             <p>Your income is: ${income}</p> {/* Display the user's income */}
 
             <Link to="../configure-budget">
-                <button>Configure Budget</button>
+                <button className="button">Configure Budget</button>
             </Link>
             <canvas id="pie-chart" width="400" height="400"></canvas>
             <br></br>

@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
-import Navbar from "../components/Navbar";
-import SavingsGoals from "../classes/SavingsGoals";
-import Goal from "../classes/Goal";
-import readSavingsGoals from "../components/Crud/readSavingsGoals";
-import updateSavingsGoals from "../components/Crud/updateSavingsGoals";
+import Navbar from "../../components/Navbar";
+import SavingsGoals from "../../classes/SavingsGoals";
+import Goal from "../../classes/Goal";
+import "../../css/styles.css";
+import {Link} from "react-router-dom";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+import readSavingsGoals from "../../components/Crud/readSavingsGoals";
+import updateSavingsGoals from "../../components/Crud/updateSavingsGoals";
 
 const SavingsGoalPage = () => {
     const [savingsGoals, setSavingsGoals] = useState(new SavingsGoals());
@@ -52,7 +54,12 @@ const SavingsGoalPage = () => {
             });
 
             const allGoals = [...savingsGoals.goals, newGoal];
-            updateSavingsGoals(allGoals)
+
+            try{
+                updateSavingsGoals(allGoals)
+            } catch (error) {
+                console.log("no goals")
+            }
 
             setNewCategory("");
             setGoalAmount("");
@@ -71,8 +78,13 @@ const SavingsGoalPage = () => {
                     return { ...prevSavingsGoals, goals: updatedGoals };
                 });
 
+                try{
+                    updateSavingsGoals(updatedGoals);
+                } catch (error) {
+                    console.log("no goals")
+                }
                 // Call updateSavingsGoals with the updated goals
-                updateSavingsGoals(updatedGoals);
+
 
                 // Clear the contribution input field
                 setContribution("");
@@ -92,10 +104,10 @@ const SavingsGoalPage = () => {
 
     return (
         <div>
-            <Navbar />
-            <h1>Savings Goals</h1>
+            <Navbar/>
+            <h1 className="header">Savings Goals</h1>
             <form onSubmit={handleSubmit}>
-                <label>
+                <label className="form-label">
                     Add a new goal to save for:
                     &nbsp;
                     <input
@@ -103,10 +115,11 @@ const SavingsGoalPage = () => {
                         value={newCategory}
                         onChange={(e) => setNewCategory(e.target.value)}
                         placeholder="Enter category"
+                        required={true}
                     />
                 </label>
-                <br />
-                <label>
+                <br/>
+                <label className="form-label">
                     What is your goal amount for {newCategory}?
                     &nbsp;
                     <input
@@ -114,19 +127,20 @@ const SavingsGoalPage = () => {
                         value={goalAmount}
                         onChange={(e) => setGoalAmount(e.target.value)}
                         placeholder="Enter goal amount"
+                        required={true}
                     />
                 </label>
-                <br />
-                <button type="submit">Add New Goal</button>
+                <br/>
+                <button className="button" type="submit">Add New Goal</button>
             </form>
-            <br />
-            <h2>Existing Goals:</h2>
+            <br></br>
+            <h2 className="header">Existing Goals:</h2>
             <ul>
                 {savingsGoals.goals.map((goal, index) => (
                     <li key={index}>
                         {goal.category} - Goal: ${goal.goalAmount}, Current: ${goal.currentAmount}
                         {/* Progress bar */}
-                        <div style={{ width: "50%", margin: "0 auto", backgroundColor: "#ddd" }}>
+                        <div style={{width: "50%", margin: "0 auto", backgroundColor: "#ddd"}}>
                             <div
                                 style={{
                                     width: `${calculateProgress(goal)}%`,
@@ -139,9 +153,9 @@ const SavingsGoalPage = () => {
                 ))}
             </ul>
             <form onSubmit={handleSubmit}>
-                <label>
-                    Which goal would you like to contribute to?
-                    &nbsp;
+                <label className="form-label">
+                    Which goal would you like to modify?
+                    <br></br>
                     <select value={savingsGoals.existingCategory} onChange={handleContribute}>
                         <option value="">Select Goal</option>
                         {savingsGoals.goals.map((goal, index) => (
@@ -151,21 +165,32 @@ const SavingsGoalPage = () => {
                         ))}
                     </select>
                 </label>
-                <br />
-                <label>
-                    Contribution Amount:
-                    &nbsp;
-                    <input
-                        type="number"
-                        value={contribution}
-                        onChange={(e) => setContribution(e.target.value)}
-                    />
-                </label>
-                <br />
-                <button type="submit">Contribute to Goal</button>
+                <br/>
+                {
+                    savingsGoals.existingCategory && (
+                        <div>
+                            <label className="form-label">
+                                Contribution Amount:
+                                &nbsp;
+                                <input
+                                    type="number"
+                                    value={contribution}
+                                    onChange={(e) => setContribution(e.target.value)}
+                                    style={{ width: '100px' }}
+                                />
+                            </label>
+                            <button className="button" type="submit"> Contribute </button>
+                            <br/>
+                            <Link to={`/modify-goal?category=${savingsGoals.existingCategory}`}>
+                                <button className="button">Modify {savingsGoals.existingCategory}</button>
+                            </Link>
+                        </div>
+                    )
+                }
             </form>
         </div>
     );
 };
+
 
 export default SavingsGoalPage;

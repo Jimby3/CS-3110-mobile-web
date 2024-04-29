@@ -3,6 +3,7 @@ import {Link, useLocation} from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Category from "../../classes/Category";
 import Budget from "../../classes/Budget";
+import '../../css/styles.css';
 import {getAuth} from "firebase/auth";
 import {getFirestore} from "firebase/firestore";
 import readBudget from "../../components/Crud/readBudget";
@@ -90,26 +91,26 @@ const ConfigureBudgetCategory = () => {
     return (
         <div>
             <Navbar/>
-            <h1>Configure Category</h1>
+            <h1 className="header">Configure Category</h1>
 
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="categoryName">Category Name: </label>
+                    <label  className="form-label" htmlFor="categoryName">Category Name: </label>
                     <input type="text" id="categoryName" name="categoryName" required placeholder="Enter category name"/>
                 </div>
                 <div>
                     <input type="radio" id="dollars" name="amountType" value="dollars" defaultChecked={true}/>
-                    <label htmlFor="dollars">Dollars</label>
+                    <label className="form-label" htmlFor="dollars">Dollars</label>
                     <h6>or</h6>
                     <input type="radio" id="percentage" name="amountType" value="percentage"/>
-                    <label htmlFor="percentage">Percentage (%)</label>
+                    <label className="form-label" htmlFor="percentage">Percentage (%)</label>
                     <br/>
-                    <label htmlFor="budgetAmount">Amount:</label>
+                    <label className="form-label" htmlFor="budgetAmount">Amount:</label>
                     <input type="number" id="budgetAmount" name="budgetAmount" min="0" step="0.01" required placeholder="123"/>
                 </div>
-                <button type="submit">Save</button>
+                <button className="button" type="submit">Save</button>
                 <Link to="/configure-budget">
-                    <button type="Button">Cancel</button>
+                    <button className="button" type="Button">Cancel</button>
                 </Link>
             </form>
 
