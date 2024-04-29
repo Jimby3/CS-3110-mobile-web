@@ -2,6 +2,7 @@ import { getAuth } from 'firebase/auth';
 import {getFirestore, collection, getDocs, query, where, doc, setDoc, deleteDoc, addDoc} from 'firebase/firestore';
 
 const updateSavingsGoals = async (newGoals) => {
+    console.log("Inside updateSavingsGoals")
     console.log("New Goals in UpdateSavingsGoals", newGoals)
     try {
         // Get Firebase Auth instance and current user

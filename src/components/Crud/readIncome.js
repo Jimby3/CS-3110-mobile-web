@@ -2,6 +2,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, getDoc, getDocs, query, where } from 'firebase/firestore';
 
 const readIncome = async () => {
+    console.log("Inside readIncome")
     try {
         // Initialize Firebase Auth
         const auth = await getAuth();

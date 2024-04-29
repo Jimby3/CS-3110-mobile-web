@@ -2,6 +2,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, getDocs, query, where, deleteDoc, addDoc } from 'firebase/firestore';
 
 const updateBudgetCategories = async (newCategories) => {
+    console.log("Inside Update Budget Categories")
     try {
         // Get Firebase Auth instance and current user
         const auth = getAuth();
@@ -51,14 +52,24 @@ const updateBudgetCategories = async (newCategories) => {
         // Fetch existing categories
         const existingCategoriesSnapshot = await getDocs(categoriesCollectionRef);
 
+        // Get names of existing categories
+        const existingCategoryNames = existingCategoriesSnapshot.docs.map(doc => doc.data().name);
 
-        // Delete all existing documents in the categories subcollection
-        existingCategoriesSnapshot.forEach(async (doc) => {
-            await deleteDoc(doc.ref);
+        // Remove duplicates from both existing categories and new categories
+        const filteredExistingCategories = existingCategoriesSnapshot.docs.filter(doc => {
+            const categoryName = doc.data().name;
+            return !newCategories.some(category => category.name === categoryName);
         });
 
-        // Create new documents based on the combined list of categories
-        await Promise.all(newCategories.map(async (category) => {
+        const filteredNewCategories = newCategories.filter(category => !existingCategoryNames.includes(category.name));
+
+        // Delete all existing documents in the categories subcollection
+        await Promise.all(filteredExistingCategories.map(async (doc) => {
+            await deleteDoc(doc.ref);
+        }));
+
+        // Create new documents based on the filtered list of categories
+        await Promise.all(filteredNewCategories.map(async (category) => {
             // Create a new document reference within the categories subcollection
             try {
                 await addDoc(categoriesCollectionRef, category.toObject());
@@ -75,3 +86,4 @@ const updateBudgetCategories = async (newCategories) => {
 };
 
 export default updateBudgetCategories;
+

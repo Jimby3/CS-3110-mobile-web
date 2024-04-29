@@ -3,6 +3,7 @@ import {collection, getDoc, getDocs, getFirestore, query, where} from 'firebase/
 import Budget from "../../classes/Budget";
 
 const readBudget = async () => {
+    console.log("Inside readBudget")
     try {
         // Get Firebase Auth instance and current user
         const auth = await getAuth();

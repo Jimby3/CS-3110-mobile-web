@@ -2,6 +2,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
 
 const updateIncome = async (newIncome) => {
+    console.log("Inside updateIncome")
     try {
         // Get Firebase Auth instance and current user
         const auth = getAuth();

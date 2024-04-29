@@ -3,6 +3,7 @@ import {collection, getDoc, getDocs, getFirestore, query, where} from 'firebase/
 import SavingsGoals from "../../classes/SavingsGoals";
 
 const readSavingsGoals = async () => {
+    console.log("Inside readSavingsGoals")
     try {
         // Get Firebase Auth instance and current user
         const auth = await getAuth();

@@ -28,7 +28,13 @@ function SignUp() {
             const userDocRef = await addDoc(usersCollectionRef, {
                 userId: user.uid, // Associate user document with user ID
                 email: user.email, // Store user's email (you can add more fields as needed)
-                income: 500
+                income: 500,
+                hours: 40,
+                hourlyPay: 16,
+                payPeriods: 2,
+                withholding: 20,
+                additionalWitholding: 5
+
             });
 
             // Reference to the 'budget' subcollection within the user document
@@ -41,7 +47,14 @@ function SignUp() {
             const categoriesCollectionRef = collection(budgetDocRef, 'categories');
 
             // Create a new document in the 'categories' subcollection as a placeholder
-            await addDoc(categoriesCollectionRef, {});
+            await addDoc(categoriesCollectionRef, {
+
+                name: "exampleCategory",
+                dollarAmount: 200,
+                percentage: 0,
+                trueDollar: false
+
+            });
 
             // Reference to the 'savingsGoals' subcollection within the user document
             const savingsGoalsCollectionRef = collection(userDocRef, 'savingsGoals');
@@ -53,7 +66,12 @@ function SignUp() {
             const goalsCollectionRef = collection(savingsGoalsDocRef, 'goals');
 
             // Create a new document in the 'goals' subcollection as a placeholder
-            await addDoc(goalsCollectionRef, {});
+            await addDoc(goalsCollectionRef, {
+                category: "exampleCategory",
+                goalAmount: 10000,
+                currentAmount: 2000
+
+            });
 
             // User signed up successfully
             window.location = '/';
