@@ -3,6 +3,11 @@ import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import updateIncome from "../components/Crud/updateIncome";
+import readHours from "../components/Crud/readHours";
+import readAdditionalWithholding from "../components/Crud/readAdditionalWithholding";
+import readWithholding from "../components/Crud/readWithholding";
+import readPayPeriods from "../components/Crud/readPayPeriods";
+import readHourlyPay from "../components/Crud/readHourlyPay";
 
 const Home = () => {
     const [user, setUser] = useState(null);
@@ -21,7 +26,11 @@ const Home = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        updateIncome(1000)
+        console.log(await readHours())
+        console.log(await readHourlyPay())
+        console.log(await readPayPeriods())
+        console.log(await readWithholding())
+        console.log(await readAdditionalWithholding())
 
         // ability to test any funcs
 

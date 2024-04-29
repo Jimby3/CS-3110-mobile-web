@@ -33,7 +33,7 @@ function SignUp() {
                 hourlyPay: 16,
                 payPeriods: 2,
                 withholding: 20,
-                additionalWitholding: 5
+                additionalWithholding: 5
 
             });
 
