@@ -11,6 +11,12 @@ import readWithholding from "../components/Crud/readWithholding";
 import readPayPeriods from "../components/Crud/readPayPeriods";
 import readHourlyPay from "../components/Crud/readHourlyPay";
 import readColoradoFML from "../components/Crud/readColoradoFML";
+import updateAdditionalWithholding from "../components/Crud/updateAdditionalWithholding";
+import updateColoradoFML from "../components/Crud/updateColoradoFML";
+import updateHourlyPay from "../components/Crud/updateHourlyPay";
+import updateHours from "../components/Crud/updateHours";
+import updatePayPeriods from "../components/Crud/updatePayPeriods";
+import updateWithholding from "../components/Crud/updateWithholding";
 
 const Home = () => {
     const [user, setUser] = useState(null);
@@ -36,6 +42,13 @@ const Home = () => {
         console.log(await readAdditionalWithholding())
         console.log(await readColoradoFML())
 
+        await updateAdditionalWithholding(1)
+        await updateColoradoFML(false)
+        await updateHourlyPay(2)
+        await updateHours(3)
+        await updateIncome(4)
+        await updatePayPeriods(5)
+        await updateWithholding(6)
         // ability to test any funcs
 
     }
