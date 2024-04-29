@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
+import updateIncome from "../components/Crud/updateIncome";
 
 const Home = () => {
     const [user, setUser] = useState(null);
@@ -19,6 +20,8 @@ const Home = () => {
     // made to test readBudget
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        updateIncome(1000)
 
         // ability to test any funcs
 

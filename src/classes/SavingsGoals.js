@@ -1,3 +1,5 @@
+import Goal from "./Goal";
+
 class SavingsGoals {
     constructor() {
         this.goals = [];
@@ -27,6 +29,23 @@ class SavingsGoals {
     getGoalByCategory(category) {
         return this.goals.find(goal => goal.category === category);
     }
+
+    static fromJSON(json) {
+        const savingsGoals = new SavingsGoals();
+        if (json && Array.isArray(json.goals)) {
+            json.goals.forEach(goalData => {
+                const { category, goalAmount, currentAmount } = goalData;
+                const newGoal = new Goal(category);
+                newGoal.goalAmount = parseFloat(goalAmount);
+                newGoal.currentAmount = parseFloat(currentAmount);
+                savingsGoals.addGoal(newGoal);
+            });
+        }
+        console.log("Savings Goals Object:", savingsGoals);
+        return savingsGoals;
+    }
+
+
 
 
 }

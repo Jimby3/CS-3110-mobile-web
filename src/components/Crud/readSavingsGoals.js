@@ -1,12 +1,12 @@
-import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
-import SavingsGoal from "../../classes/SavingsGoal"; // Assuming SavingsGoal class exists
+import {getAuth} from 'firebase/auth';
+import {collection, getDoc, getDocs, getFirestore, query, where} from 'firebase/firestore';
+import SavingsGoals from "../../classes/SavingsGoals";
 
 const readSavingsGoals = async () => {
     try {
         // Get Firebase Auth instance and current user
         const auth = await getAuth();
-        const currentUser = auth.currentUser;
+        const currentUser = await auth.currentUser;
 
         if (!currentUser) {
             throw new Error('No user is currently signed in.');
@@ -33,10 +33,31 @@ const readSavingsGoals = async () => {
         const userDocumentRef = userQuerySnapshot.docs[0].ref;
 
         // Reference to the user's savings goals subcollection
-        const goalsCollectionRef = collection(userDocumentRef, 'savingsGoals'); // Change collection name to 'savingsGoals'
+        const savingsGoalsCollectionRef = collection(userDocumentRef, 'savingsGoals'); // Change collection name to 'savingsGoals'
 
-        // Query the savings goals subcollection
-        const goalsQuerySnapshot = await getDocs(goalsCollectionRef);
+        // Query the budget subcollection
+        const savingsGoalsQuerySnapshot = await getDocs(savingsGoalsCollectionRef);
+
+        // Check if there are any documents in the budget subcollection
+        if (savingsGoalsQuerySnapshot.empty) {
+            throw new Error('No budget document found for the current user.');
+        }
+
+        // Reference to the user's savings goals document
+        const savingsGoalsDocumentRef = savingsGoalsQuerySnapshot.docs[0].ref;
+
+        const savingsGoalsDocSnapshot = await getDoc(savingsGoalsDocumentRef)
+
+        const savingsGoalsData = savingsGoalsDocSnapshot.data()
+
+        if (!savingsGoalsDocSnapshot.exists()) {
+            throw new Error('Budget document not found for the current user.');
+        }
+        // Reference to the savingsGoals document's goals subcollection
+        const goalsSubcollectionRef = collection(savingsGoalsDocumentRef, 'goals');
+
+        // Query the goals subcollection
+        const goalsQuerySnapshot = await getDocs(goalsSubcollectionRef);
 
         // Check if there are any documents in the savings goals subcollection
         if (goalsQuerySnapshot.empty) {
@@ -45,11 +66,12 @@ const readSavingsGoals = async () => {
 
         // Extract savings goals data from the query snapshot
         const goalsData = goalsQuerySnapshot.docs.map(doc => doc.data());
+        console.log("Printing Goals Data", goalsData)
 
-        // Convert goalsData into SavingsGoal objects
-        const savingsGoals = goalsData.map(goalData => SavingsGoal.fromJSON(goalData));
+        return SavingsGoals.fromJSON({
+            goals: goalsData
+        });
 
-        return savingsGoals;
     } catch (error) {
         console.error('Error reading savings goals:', error);
         throw error;

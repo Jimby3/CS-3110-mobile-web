@@ -1,13 +1,43 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import Navbar from "../components/Navbar";
 import SavingsGoals from "../classes/SavingsGoals";
 import Goal from "../classes/Goal";
+import readSavingsGoals from "../components/Crud/readSavingsGoals";
+import updateSavingsGoals from "../components/Crud/updateSavingsGoals";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 
 const SavingsGoalPage = () => {
     const [savingsGoals, setSavingsGoals] = useState(new SavingsGoals());
     const [newCategory, setNewCategory] = useState("");
     const [goalAmount, setGoalAmount] = useState("");
     const [contribution, setContribution] = useState("");
+
+
+    useEffect(() => {
+        const fetchSavingsGoals = async () => {
+            try {
+                const auth = getAuth();
+                const unsubscribe = onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        // User is signed in, proceed to fetch data
+                        const data = await readSavingsGoals();
+                        setSavingsGoals(data);
+                    } else {
+                        // User is signed out, handle accordingly
+                        console.log("User is signed out.");
+                    }
+                });
+
+                // Clean up function to unsubscribe from auth state changes
+                return unsubscribe;
+            } catch (error) {
+                console.error("Error loading Savings Goals:", error);
+            }
+        };
+
+        // Call the function to fetch savings goals when the component mounts
+        fetchSavingsGoals();
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,25 +48,35 @@ const SavingsGoalPage = () => {
 
             setSavingsGoals((prevSavingsGoals) => {
                 const updatedGoals = [...prevSavingsGoals.goals, newGoal];
-                return { ...prevSavingsGoals, goals: updatedGoals };
+                return {...prevSavingsGoals, goals: updatedGoals};
             });
+
+            const allGoals = [...savingsGoals.goals, newGoal];
+            updateSavingsGoals(allGoals)
 
             setNewCategory("");
             setGoalAmount("");
         } else if (contribution && savingsGoals.goals.length > 0) {
-            const updatedGoals = savingsGoals.goals.map((goal) => {
-                if (goal.category === savingsGoals.existingCategory) {
-                    goal.currentAmount += parseFloat(contribution);
-                }
-                return goal;
-            });
+                // Map through the goals to update the current amount if the category matches the existing category
+                const updatedGoals = savingsGoals.goals.map((goal) => {
+                    if (goal.category === savingsGoals.existingCategory) {
+                        // Update the current amount of the goal
+                        goal.currentAmount += parseFloat(contribution);
+                    }
+                    return goal;
+                });
 
-            setSavingsGoals((prevSavingsGoals) => {
-                return { ...prevSavingsGoals, goals: updatedGoals };
-            });
+                // Update the savingsGoals state with the updated goals
+                setSavingsGoals((prevSavingsGoals) => {
+                    return { ...prevSavingsGoals, goals: updatedGoals };
+                });
 
-            setContribution("");
-        }
+                // Call updateSavingsGoals with the updated goals
+                updateSavingsGoals(updatedGoals);
+
+                // Clear the contribution input field
+                setContribution("");
+            }
     };
 
     const calculateProgress = (goal) => {

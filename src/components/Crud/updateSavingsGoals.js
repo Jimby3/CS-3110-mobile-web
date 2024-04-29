@@ -1,7 +1,8 @@
 import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, getDocs, query, where, deleteDoc, addDoc } from 'firebase/firestore';
+import {getFirestore, collection, getDocs, query, where, doc, setDoc, deleteDoc, addDoc} from 'firebase/firestore';
 
-const updateSavingsGoals = async (goals) => {
+const updateSavingsGoals = async (newGoals) => {
+    console.log("New Goals in UpdateSavingsGoals", newGoals)
     try {
         // Get Firebase Auth instance and current user
         const auth = getAuth();
@@ -31,19 +32,37 @@ const updateSavingsGoals = async (goals) => {
         // Assuming there's only one document, get its reference
         const userDocumentRef = userQuerySnapshot.docs[0].ref;
 
-        // Reference to the user's savingsGoals subcollection
-        const savingsGoalsCollectionRef = collection(userDocumentRef, 'savingsGoals');
+        const savingsGoalsCollectionRef = collection(userDocumentRef, "savingsGoals")
 
-        // Delete all existing documents in the savingsGoals subcollection
-        const goalsQuerySnapshot = await getDocs(savingsGoalsCollectionRef);
-        goalsQuerySnapshot.forEach(async (doc) => {
+
+        const savingsGoalsQuerySnapshot = await getDocs(savingsGoalsCollectionRef)
+
+        if (savingsGoalsQuerySnapshot.empty) {
+            throw new Error('No savings Goals document found for the current user.');
+        }
+
+        // Reference to the user's savingsGoals document
+        const savingsGoalsDocRef = savingsGoalsQuerySnapshot.docs[0].ref
+
+        const goalsCollectionRef = collection(savingsGoalsDocRef, "goals")
+
+        const existingGoalsSnapshot = await getDocs(goalsCollectionRef)
+
+        console.log("Existing goals", existingGoalsSnapshot)
+        console.log("New goals", newGoals)
+
+        existingGoalsSnapshot.forEach(async (doc) => {
             await deleteDoc(doc.ref);
         });
 
-        // Create new documents based on the provided goals
-        await Promise.all(goals.map(async (goal) => {
-            // Create a new document reference within the savingsGoals subcollection
-            await addDoc(savingsGoalsCollectionRef, goal); // Set the data for the new document
+
+        await Promise.all(newGoals.map(async (goal) => {
+            // Create a new document reference within the categories subcollection
+            try {
+                await addDoc(goalsCollectionRef, goal.toObject());
+            } catch (error) {
+                console.error('Error adding category:', error);
+            }
         }));
 
         console.log('Savings goals updated successfully');
