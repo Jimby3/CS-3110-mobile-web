@@ -56,45 +56,42 @@ const Home = () => {
 
     return (
         <div className="defaultPage">
-            <h1 className="header">Homepage</h1>
-            <p>need to figure out what to put here</p>
+            <h1 className="header">Home</h1>
             <div>
                 <Link to="/paycheck">
-                    <button className="button">Paycheck Calc</button>
+                    <button className="button-big">Paycheck Calc</button>
                 </Link>
+                <br></br>
                 <Link to="/paycheck-budget">
-                    <button className="button">Budget</button>
+                    <button className="button-big">Budget</button>
                 </Link>
+                <br></br>
                 <Link to="/savings">
-                    <button className="button">Savings Goals</button>
+                    <button className="button-big">Savings Goals</button>
                 </Link>
             </div>
-            <div>
-                <Link to="/login">
-                    <button className="button">Login</button>
-                </Link>
-            </div>
-            <form onSubmit={handleSubmit}>
-                <button className="button" type="submit">Testing Button</button>
-            </form>
-
+            <br></br>
+            <br></br>
             <div className="container">
                 <div className="row">
+                    <br></br>
                     <div className="col-md-4">
-                        {/* Column 1 content */}
-                        <br></br>
                         <h2>Our App</h2>
-                        <p>This is column 1 content.</p>
+                        <p>Our App is a personal finance app that was designed by 3 college students for a class.
+                            We utilized HTML, CSS, JavaScript, and React/Bootstrap to implement our application</p>
                     </div>
                     <div className="col-md-4">
-                        {/* Column 2 content */}
                         <h2>CS 3110</h2>
-                        <p>This is column 2 content.</p>
+                        <p>CS 3110 - Programming the Mobile Web, is a class designated to learning programming
+                            ideologies and implementations in the context of mobile devices</p>
                     </div>
                     <div className="col-md-4">
                         {/* Column 3 content */}
-                        <h2>About Us</h2>
-                        <p>This is column 3 content.</p>
+                        <h2>About us</h2>
+                        <p>We are three college students who got tasked with making a mobile-first application for the
+                        duration of a semester, we all came in with limited experience and ended up creating this
+                            application</p>
+
                     </div>
                 </div>
             </div>
