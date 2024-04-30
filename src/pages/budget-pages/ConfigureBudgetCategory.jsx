@@ -89,8 +89,7 @@ const ConfigureBudgetCategory = () => {
 
 
     return (
-        <div>
-            <Navbar/>
+        <div className="defaultPage">
             <h1 className="header">Configure Category</h1>
 
             <form onSubmit={handleSubmit}>

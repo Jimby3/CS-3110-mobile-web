@@ -7,6 +7,15 @@ body {
     background-color: #487a64;
 }
 
+head {
+    background-color: #487a64;
+}
+
+header {
+    background-color: #487a64;
+}
+
+
 .input-field {
     width: 150px;
     height: 30px;
@@ -35,7 +44,7 @@ input[type="radio"]:checked + label {
 }
 
 .button {
-    background-color: #bddbcd;
+    background-color: #c5dcc2;
     color: #00140b;
     border-color: #00140b;
     border-radius: 10px;
@@ -62,6 +71,68 @@ input[type="radio"]:checked + label {
 
 .progress-bar {
     height: 100%;
-    background-color: #007bff;
+    background-color: #5a855f;
     border-radius: 4px;
 }
+
+.navbar-custom {
+    background-color: #5a855f;
+}
+
+.defaultPage {
+    background-color: #e3f1e6;
+}
+
+.App {
+    text-align: center;
+}
+
+.parent-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the container fills the viewport height */
+}
+
+.App-header {
+    background-color: #5a855f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: initial;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    height: calc(50vh);
+
+}
+
+
+
+
+.home-buttons {
+
+}
+
+.logInOut {
+    background-color: #c5dcc2;
+    color: #00140b;
+    border-color: #00140b;
+    border-radius: 10px;
+    padding: 2px 6px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+
+.button-container {
+    position: absolute; /* Position the container relative to its nearest positioned ancestor */
+    top: 10px; /* Distance from the top edge of the nearest positioned ancestor */
+    right: 70px; /* Distance from the right edge of the nearest positioned ancestor */
+    display: flex;
+    justify-content: flex-end; /* Align items to the end of the container (right side) */
+    align-items: flex-start; /* Align items to the start of the container (top) */
+}
+

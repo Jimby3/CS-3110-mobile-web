@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import './App.css';
 import {initializeApp} from "firebase/app";
 import './css/styles.css';
 
@@ -23,6 +22,8 @@ import LogInPage from "./pages/authPages/LogInPage";
 import LogOutPage from "./pages/authPages/LogOutPage";
 import {getAuth} from "firebase/auth";
 import ModifyGoalPage from "./pages/savings-pages/ModifyGoalPage";
+import LogOut from "./components/auth/LogOut";
+import Navbar from "./components/Navbar";
 
 
 // Your web app's Firebase configuration
@@ -53,7 +54,10 @@ function App() {
         return () => unsubscribe(); // Unsubscribe from the listener when component unmounts
     }, []);
 
-  // const username = "exampleUsername";
+    const handleLogin = async (event) => {
+        window.location = "/login"
+    }
+
   return (
 
       <UserProvider>

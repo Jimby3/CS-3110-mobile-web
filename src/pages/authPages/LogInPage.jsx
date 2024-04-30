@@ -5,9 +5,10 @@ import {Link} from "react-router-dom";
 
 const LogInPage = () => {
     return (
-        <div>
-            <Navbar></Navbar>
+        <div className="defaultPage">
             <LogIn></LogIn>
+            <br></br>
+            <br></br>
             <p>Don't Have An Account?</p>
             <Link to="/signup">
                 <button className="button">Sign-Up</button>

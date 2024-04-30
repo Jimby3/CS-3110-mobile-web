@@ -10,8 +10,7 @@ const Paycheck = () => {
   };
 
     return (
-        <div>
-            <Navbar></Navbar>
+        <div className="defaultPage">
 
             <form>
               <label className="form-label" for="hoursInput">Hours Worked</label><br></br>

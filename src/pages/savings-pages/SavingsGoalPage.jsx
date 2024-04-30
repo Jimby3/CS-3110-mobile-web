@@ -103,8 +103,7 @@ const SavingsGoalPage = () => {
     };
 
     return (
-        <div>
-            <Navbar/>
+        <div className="defaultPage">
             <h1 className="header">Savings Goals</h1>
             <form onSubmit={handleSubmit}>
                 <label className="form-label">

@@ -153,12 +153,12 @@ class Budget {
                     label: 'Budget Distribution',
                     data: pieChartData.data,
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.5)',
-                        'rgba(54, 162, 235, 0.5)',
-                        'rgba(255, 206, 86, 0.5)',
-                        'rgba(75, 192, 192, 0.5)',
-                        'rgba(153, 102, 255, 0.5)',
-                        'rgba(255, 159, 64, 0.5)'
+                        'rgba(85,182,125,0.5)',
+                        'rgba(142,217,171,0.5)',
+                        'rgba(61,120,86,0.5)',
+                        'rgba(194,217,200,0.5)',
+                        'rgba(15,77,40,0.5)',
+                        'rgba(13,46,25,0.5)'
                         // Add more colors as needed
                     ],
                     borderWidth: 1

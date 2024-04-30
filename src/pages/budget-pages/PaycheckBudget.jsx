@@ -62,28 +62,27 @@ const PaycheckBudget = () => {
 
 
     return (
-        <div>
-            <Navbar/>
-            <h1 className="header">Budget</h1>
-            <p>Your income is: ${income}</p> {/* Display the user's income */}
+            <div className="defaultPage">
+                <h1 className="header">Budget</h1>
+                <p>Your income is: ${income}</p> {/* Display the user's income */}
 
-            <Link to="../configure-budget">
-                <button className="button">Configure Budget</button>
-            </Link>
-            <canvas id="pie-chart" width="400" height="400"></canvas>
-            <br></br>
-            <ul>
-                {budget && budget.categories.map((category, index) => (
-                    <li key={index}>
-                        <div>
-                            <strong>{category.name}:</strong>
-                            <strong> $</strong>{category.dollarAmount.toFixed(2)}
-                            <strong> |</strong> {category.percentage.toFixed(2)}%
-                        </div>
-                    </li>
-                ))}
-            </ul>
-        </div>
+                <Link to="../configure-budget">
+                    <button className="button">Configure Budget</button>
+                </Link>
+                <canvas id="pie-chart" width="400" height="400"></canvas>
+                <br></br>
+                <ul>
+                    {budget && budget.categories.map((category, index) => (
+                        <li key={index}>
+                            <div>
+                                <strong>{category.name}:</strong>
+                                <strong> $</strong>{category.dollarAmount.toFixed(2)}
+                                <strong> |</strong> {category.percentage.toFixed(2)}%
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
     )
         ;
 };
