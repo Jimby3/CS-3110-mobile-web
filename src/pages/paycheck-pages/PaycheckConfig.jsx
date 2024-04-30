@@ -16,6 +16,7 @@ import updateAdditionalWithholding from "../../components/Crud/updateAdditionalW
 import paycheckMath from "../../components/PaycheckMath";
 import readHours from "../../components/Crud/readHours";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import updateIncome from "../../components/Crud/updateIncome";
 
 const PaycheckConfig = () => {
     const [user, setUser] = useState(null);
@@ -81,26 +82,23 @@ const PaycheckConfig = () => {
             //category.percentage = amount;
         //}
 
-        budget.correctBudgetOffIncome(await readIncome())
         
         const { rounded, roundedFML, total } = await paycheckMath(hours, hourly, payperiods, withholding, addwithholding)
         console.log("Rounded:", rounded);
         console.log("Rounded FML:", roundedFML);
         console.log("Total:", total);
 
-        await updateHourlyPay(hourly)
-        await updatePayPeriods(payperiods)
-        await updateWithholding(withholding)
-        await updateAdditionalWithholding(addwithholding)
-
         setRoundedValue(rounded);
         setRoundedFMLValue(roundedFML);
         setTotalValue(total);
-        //update Colorado FML
 
+        await updateHourlyPay(hourly)
+        await updatePayPeriods(payperiods)
+        await updateWithholding(roundedValue)
+        await updateAdditionalWithholding(addwithholding)
+        await updateIncome(totalValue)
+    
     };
-
-    //const calculatedValues = paycheckMath();
 
     return (
         <div className="defaultPage">
