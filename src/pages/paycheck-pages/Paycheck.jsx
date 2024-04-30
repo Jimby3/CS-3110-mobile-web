@@ -44,15 +44,15 @@ const Paycheck = () => {
       const formData = new FormData(event.target);
       const hours = parseFloat(formData.get('hoursInput'));
 
-      const hourly = readHourlyPay();
+      const hourly = await readHourlyPay();
       console.log("Hourly", hourly)
-      const payperiods = readPayPeriods();
+      const payperiods = await readPayPeriods();
       console.log("payperiods", payperiods)
-      const withholding = readWithholding();
+      const withholding = await readWithholding();
       console.log("withholding", withholding)
       const addwithholding = 0;
 
-      const { rounded, roundedFML, total } = paycheckMath(hours, hourly, payperiods, withholding, addwithholding)
+      const { rounded, roundedFML, total } = await paycheckMath(hours, hourly, payperiods, withholding, addwithholding)
 
       setRoundedValue(rounded);
       console.log("rounded", rounded)
