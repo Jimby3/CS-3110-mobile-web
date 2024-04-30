@@ -78,7 +78,7 @@ const Paycheck = () => {
                 <button className="button" >Configure Withholding Amount/Config</button>
               </Link>
             
-              <p>Final Value: </p><br></br>
+              <p>Final Value: {totalValue}</p><br></br>
             </form>
 
         </div>
