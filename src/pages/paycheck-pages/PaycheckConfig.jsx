@@ -1,16 +1,85 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {Link, useLocation} from "react-router-dom";
 import Navbar from "../../components/Navbar";
-import { Link } from "react-router-dom";
+import Category from "../../classes/Category";
+import Budget from "../../classes/Budget";
+import '../../css/styles.css';
+import {getAuth} from "firebase/auth";
+import {getFirestore} from "firebase/firestore";
+import readBudget from "../../components/Crud/readBudget";
+import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
+import readIncome from "../../components/Crud/readIncome";
+import updateHourlyPay from "../../components/Crud/updateHourlyPay";
+import updatePayPeriods from "../../components/Crud/updatePayPeriods";
+import updateWithholding from "../../components/Crud/updateWithholding";
+import updateAdditionalWithholding from "../../components/Crud/updateAdditionalWithholding";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const PaycheckConfig = () => {
-    const setHours = 30;
-    const [hourly, setHourly] = useState(0);
-    const [payperiods, setPayperiods] = useState(26); // Default to biweekly
-    const [allowance, setAllowance] = useState(0);
-    const [addAllowance, setAddAllowance] = useState(0);
+    const [user, setUser] = useState(null);
+    const [budget, setBudget] = useState(null);
 
-    const paycheckMath = async () => { 
+    useEffect(() => {
+        const fetchBudget = async () => {
+            try {
+                // Get Firebase Auth instance and current user
+                const auth = await getAuth();
+                const currentUser = auth.currentUser;
+
+                if (!currentUser) {
+                    throw new Error('No user is currently signed in.');
+                }
+
+                // Fetch the budget from the database
+                const budgetData = await readBudget()
+
+                // Update the budget state
+                setBudget(budgetData);
+            } catch (error) {
+                console.error('Error fetching budget:', error);
+            }
+        };
+
+        // Call the fetchBudget function when the component mounts
+        fetchBudget();
+
+    }, []); // Empty dependency array to ensure the effect runs only once
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        // Retrieve stored budget from the database
+        let budget = await readBudget();
+
+        // Access the form data
+        const formData = new FormData(event.target);
+        //const categoryName = formData.get('categoryName');
+        const hourly = parseFloat(formData.get('payInput'));
+        const payperiods = parseFloat(formData.get('payperiodInput'));
+        const withholding = parseFloat(formData.get('withholdingInput'));
+        const addwithholding = parseFloat(formData.get('addwithholdingInput'));
+        const coloradoFML = formData.get('coloradoFMLInput');
+
+
+        // Set the dollar amount or percentage based on the selected type
+        //if (amountType === 'dollars') {
+            //category.dollarAmount = amount;
+            //category.trueDollar = true;
+        //} else {
+            //category.percentage = amount;
+        //}
+
+        budget.correctBudgetOffIncome(await readIncome())
+
+        await updateHourlyPay(hourly)
+        await updatePayPeriods(payperiods)
+        await updateWithholding(withholding)
+        await updateAdditionalWithholding(addwithholding)
+        //update Colorado FML
+
+    };
+
+    /*const paycheckMath = async () => { 
         const wages = setHours * setHourly;
         const yearly = wages * payperiods;
         const withholding = Math.max(yearly - setAllowance, 0);
@@ -24,38 +93,19 @@ const PaycheckConfig = () => {
             rounded,
             roundedFML
         };
-    }
+    }*/
+    
 
-    const inputChange = (event) => {
-        const { name, value } = event.target;
 
-        switch (name) {
-            case "payInput":
-                setHourly(parseFloat(value));
-                break;
-            case "payperiodInput":
-                setPayperiods(parseInt(value));
-                break;
-            case "withholdingInput":
-                setAllowance(parseFloat(value));
-                break;
-            case "addwithholdingInput":
-                setAddAllowance(parseFloat(value));
-                break;
-            default:
-                break;
-        }
 
-    }
-
-    const calculatedValues = paycheckMath();
+    //const calculatedValues = paycheckMath();
 
     return (
         <div className="defaultPage">
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div class="input-group mb-3">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="payInput" aria-label="Hourly Pay in USD" placeholder="Hourly Pay" onChange={inputChange}></input>
+                  <input type="number" class="form-control" id="payInput" aria-label="Hourly Pay in USD" placeholder="Hourly Pay"></input>
                 </div>
 
                 <div class="mb-3">
@@ -92,11 +142,11 @@ const PaycheckConfig = () => {
 
               <div class="input-group mb-3">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="withholdingInput" aria-label="Withholding Allowence Amount" placeholder="Withholding Allowence Amount" onChange={inputChange}></input>
+                  <input type="number" class="form-control" id="withholdingInput" aria-label="Withholding Allowence Amount" placeholder="Withholding Allowence Amount"></input>
                 </div>
                 <div class="input-group mb-3">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="addwithholdingInput" aria-label="Addtional Withholding Allowence Amount (optional)" placeholder="Addtional Withholding Allowence Amount (optional)" onChange={inputChange}></input>
+                  <input type="number" class="form-control" id="addwithholdingInput" aria-label="Addtional Withholding Allowence Amount (optional)" placeholder="Addtional Withholding Allowence Amount (optional)"></input>
                 </div>
               <div class ="accordian" id="accordionWithholdingHelp">
                 <div class="accordion-item">
@@ -122,34 +172,34 @@ const PaycheckConfig = () => {
               <p>Estimated Yearly Income: Put explainer text</p>
               <div class="input-group mb-3">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="yearlyTotal" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income" value={calculatedValues.yearly} readonly></input>
+                  <input type="number" class="form-control" id="yearlyTotal" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income" readonly></input>
             </div>
             
               <p>Total calulated witholding yearly total</p>
-              <p>{calculatedValues.withholding}</p>
+              <p></p>
               <hr></hr>
-              <p>Hidden: Percent {calculatedValues.percentage}</p>
-              <p>Hidden: Unrounded {calculatedValues.exactAmount}</p>
-              <p>Hidden: Rounded {calculatedValues.rounded}</p>
+              <p>Hidden: Percent </p>
+              <p>Hidden: Unrounded </p>
+              <p>Hidden: Rounded </p>
               <p>Colorado FML - Checkbox</p>
               <p>(If true do hours times 0.072, else 0)</p>
 
               <p>Return hidden rounded + colorado FML amount</p>
-              <p>Rounded Withholding Amount: {calculatedValues.rounded}</p>
+              <p>Rounded Withholding Amount: </p>
               <div class="input-group mb-3">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="withholdingDisplay" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income" value={calculatedValues.yearly} readonly></input>
+                  <input type="number" class="form-control" id="withholdingDisplay" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income"  readonly></input>
             </div>
-              <p>Colorado FML Amount: {calculatedValues.roundedFML}</p>
+              <p>Colorado FML Amount: </p>
               <div class="input-group mb-3">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="withholdingDisplay" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income" value={calculatedValues.yearly} readonly></input>
+                  <input type="number" class="form-control" id="withholdingDisplay" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income" readonly></input>
             </div>
             <div class="input-group mb-3">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="withholdingDisplay" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income" value={calculatedValues.yearly} readonly></input>
+                  <input type="number" class="form-control" id="withholdingDisplay" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income" readonly></input>
             </div>
-
+            <button className="button" >Save hours</button>
             </form>
             <Link to="../paycheck">
                 <button className="button">Back to Paycheck Calc</button>
