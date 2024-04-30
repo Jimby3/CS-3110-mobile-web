@@ -69,7 +69,7 @@ const PaycheckBudget = () => {
                 <Link to="../configure-budget">
                     <button className="button">Configure Budget</button>
                 </Link>
-                <canvas id="pie-chart" width="400" height="400"></canvas>
+                <canvas className="pie-chart" id="pie-chart" width="50" height="50"></canvas>
                 <br></br>
                 <ul>
                     {budget && budget.categories.map((category, index) => (

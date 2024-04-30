@@ -155,3 +155,13 @@ input[type="radio"]:checked + label {
     background-color: #6f9e88;
     padding: 6vh 12vw;
 }
+
+@media screen and (min-width: 768px) {
+    .pie-chart {
+        max-width: 400px;
+        max-height: 300px;
+        width: 100%;
+        height: auto;
+        margin: 0 auto; /* Center the canvas horizontally */
+    }
+}
