@@ -13,6 +13,7 @@ import updateHourlyPay from "../../components/Crud/updateHourlyPay";
 import updatePayPeriods from "../../components/Crud/updatePayPeriods";
 import updateWithholding from "../../components/Crud/updateWithholding";
 import updateAdditionalWithholding from "../../components/Crud/updateAdditionalWithholding";
+import paycheckMath from "../../components/PaycheckMath";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const PaycheckConfig = () => {
@@ -59,6 +60,7 @@ const PaycheckConfig = () => {
         const withholding = parseFloat(formData.get('withholdingInput'));
         const addwithholding = parseFloat(formData.get('addwithholdingInput'));
         const coloradoFML = formData.get('coloradoFMLInput');
+        //fetch hours
 
         console.log("Hourly", hourly)
         console.log("payperiods", payperiods)
@@ -74,8 +76,8 @@ const PaycheckConfig = () => {
         //}
 
         budget.correctBudgetOffIncome(await readIncome())
-
-        //pullmath
+        
+        //await paycheckMath(hours, hourly, payperiods, aaa) // somehow return the things to display on screen
         await updateHourlyPay(hourly)
         await updatePayPeriods(payperiods)
         await updateWithholding(withholding)
