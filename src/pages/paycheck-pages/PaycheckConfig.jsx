@@ -60,7 +60,11 @@ const PaycheckConfig = () => {
         const addwithholding = parseFloat(formData.get('addwithholdingInput'));
         const coloradoFML = formData.get('coloradoFMLInput');
 
-
+        console.log("Hourly", hourly)
+        console.log("payperiods", payperiods)
+        console.log("withholding", withholding)
+        console.log(addwithholding)
+        console.log(coloradoFML)
         // Set the dollar amount or percentage based on the selected type
         //if (amountType === 'dollars') {
             //category.dollarAmount = amount;
@@ -87,12 +91,12 @@ const PaycheckConfig = () => {
             <form onSubmit={handleSubmit}>
                 <div class="input-group mb-3">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="payInput" aria-label="Hourly Pay in USD" placeholder="Hourly Pay"></input>
+                  <input type="number" class="form-control" id="payInput" name="payInput" aria-label="Hourly Pay in USD" placeholder="Hourly Pay"></input>
                 </div>
 
                 <div class="mb-3">
                     <label className="form-label" for="payperiodInput" class="form-label">Number of Payperiods</label>
-                    <select class="form-select" id="payperiodInput">
+                    <select class="form-select" id="payperiodInput" name="payperiodInput">
                         <option selected>Number of Payperiods</option>
                         <option value="260">Daily - 260 per year</option>
                         <option value="52">Weekly - 52 per year</option>
@@ -124,11 +128,11 @@ const PaycheckConfig = () => {
 
               <div class="input-group mb-3">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="withholdingInput" aria-label="Withholding Allowence Amount" placeholder="Withholding Allowence Amount"></input>
+                  <input type="number" class="form-control" id="withholdingInput" name="withholdingInput" aria-label="Withholding Allowence Amount" placeholder="Withholding Allowence Amount"></input>
                 </div>
                 <div class="input-group mb-3">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="addwithholdingInput" aria-label="Addtional Withholding Allowence Amount (optional)" placeholder="Addtional Withholding Allowence Amount (optional)"></input>
+                  <input type="number" class="form-control" id="addwithholdingInput" name="addwithholdingInput" aria-label="Addtional Withholding Allowence Amount (optional)" placeholder="Addtional Withholding Allowence Amount (optional)"></input>
                 </div>
               <div class ="accordian" id="accordionWithholdingHelp">
                 <div class="accordion-item">
