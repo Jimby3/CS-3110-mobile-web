@@ -71,6 +71,7 @@ const PaycheckConfig = () => {
 
         budget.correctBudgetOffIncome(await readIncome())
 
+        //pullmath
         await updateHourlyPay(hourly)
         await updatePayPeriods(payperiods)
         await updateWithholding(withholding)
@@ -78,25 +79,6 @@ const PaycheckConfig = () => {
         //update Colorado FML
 
     };
-
-    /*const paycheckMath = async () => { 
-        const wages = setHours * setHourly;
-        const yearly = wages * payperiods;
-        const withholding = Math.max(yearly - setAllowance, 0);
-        const percentage = withholding * 0.044;
-        const exactAmount = percentage / payperiods;
-        const coloradoFML = setHours * 0.072;
-        const rounded = exactAmount.toFixed(2);
-        const roundedFML = coloradoFML.toFixed(2);
-
-        return {
-            rounded,
-            roundedFML
-        };
-    }*/
-    
-
-
 
     //const calculatedValues = paycheckMath();
 
