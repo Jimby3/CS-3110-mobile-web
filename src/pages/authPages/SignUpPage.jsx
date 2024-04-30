@@ -10,7 +10,7 @@ const SignUpPage = () => {
             <SignUp></SignUp>
             <p>Already Have an Account?</p>
             <Link to="/login">
-                <button>Login</button>
+                <button className="button">Login</button>
             </Link>
         </div>
     );

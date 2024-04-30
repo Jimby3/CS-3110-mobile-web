@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import {Link} from "react-router-dom";
 import '../css/styles.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { getAuth } from "firebase/auth";
 import updateIncome from "../components/Crud/updateIncome";
@@ -41,8 +42,7 @@ const Home = () => {
     }
 
     return (
-        <div>
-            <Navbar></Navbar>
+        <div className="defaultPage">
             <h1 className="header">Homepage</h1>
             <p>need to figure out what to put here</p>
             <div>
@@ -52,6 +52,9 @@ const Home = () => {
                 <Link to="/paycheck-budget">
                     <button className="button">Budget</button>
                 </Link>
+                <Link to="/savings">
+                    <button className="button">Savings Goals</button>
+                </Link>
             </div>
             <div>
                 <Link to="/login">
@@ -59,11 +62,32 @@ const Home = () => {
                 </Link>
             </div>
             <form onSubmit={handleSubmit}>
-                <button  className="button" type="submit">Testing Button</button>
+                <button className="button" type="submit">Testing Button</button>
             </form>
+
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-4">
+                        {/* Column 1 content */}
+                        <br></br>
+                        <h2>Our App</h2>
+                        <p>This is column 1 content.</p>
+                    </div>
+                    <div className="col-md-4">
+                        {/* Column 2 content */}
+                        <h2>CS 3110</h2>
+                        <p>This is column 2 content.</p>
+                    </div>
+                    <div className="col-md-4">
+                        {/* Column 3 content */}
+                        <h2>About Us</h2>
+                        <p>This is column 3 content.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
     );
 };
- 
+
 export default Home;

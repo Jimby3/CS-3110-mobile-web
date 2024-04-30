@@ -68,8 +68,7 @@ const ConfigureBudget = () => {
 
 
     return (
-        <div>
-            <Navbar/>
+        <div className="defaultPage">
             <h1 className="header">Budget Configuration</h1>
             {/* Render categories if budget is available */}
             {budget && (
@@ -82,8 +81,12 @@ const ConfigureBudget = () => {
                                     <strong>Category:</strong> {category.name}
                                     <strong> $</strong>{category.dollarAmount.toFixed(2)}
                                     <strong> |</strong> {category.percentage.toFixed(2)}%
-                                    <button onClick={() => handleEdit(index)}>Edit</button>
-                                    <button onClick={() => handleDelete(category.name)}>Delete</button>
+                                    <br></br>
+                                    <button className="button" onClick={() => handleEdit(index)}>Edit</button>
+                                    <button className="button" onClick={() => handleDelete(category.name)}>Delete
+                                    </button>
+                                    <br></br>
+                                    <br></br>
                                 </div>
                             </li>
                         ))}

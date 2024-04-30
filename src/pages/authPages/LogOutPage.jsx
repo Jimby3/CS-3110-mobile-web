@@ -4,9 +4,8 @@ import Navbar from "../../components/Navbar";
 
 const LogOutPage = () => {
     return (
-        <div>
-            <Navbar></Navbar>
-            <h1>Are you sure you want to log out?</h1>
+        <div className="defaultPage">
+            <h3 className="header">Are you sure you want to log out?</h3>
             <p></p>
             <LogOut />
         </div>

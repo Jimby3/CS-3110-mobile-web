@@ -77,15 +77,10 @@ const ModifyGoalPage = () => {
 
             window.location = '/savings'
         }
-
-
     };
-
 
     const handleModifyGoal = async (e) => {
       e.preventDefault();
-
-
 
       savingsGoals.goals = savingsGoals.goals.filter(goal => goal.category !== category);
        let goal = new Goal(newGoalName);
@@ -95,14 +90,10 @@ const ModifyGoalPage = () => {
 
        await updateSavingsGoals(savingsGoals.goals);
        window.location = '/savings'
-
-
-
     };
 
     return (
-        <div>
-            <Navbar/>
+        <div className="defaultPage" >
             <h1 className="header">Modify an Existing Goal</h1>
             <h3>Modifying {selectedGoalCategory}</h3>
             <form onSubmit={handleModifyGoal}>

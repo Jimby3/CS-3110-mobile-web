@@ -111,6 +111,7 @@ const SavingsGoalPage = () => {
                     Add a new goal to save for:
                     &nbsp;
                     <input
+                        className="input-field"
                         type="text"
                         value={newCategory}
                         onChange={(e) => setNewCategory(e.target.value)}
@@ -123,6 +124,7 @@ const SavingsGoalPage = () => {
                     What is your goal amount for {newCategory}?
                     &nbsp;
                     <input
+                        className="input-field"
                         type="number"
                         value={goalAmount}
                         onChange={(e) => setGoalAmount(e.target.value)}
@@ -156,7 +158,7 @@ const SavingsGoalPage = () => {
                 <label className="form-label">
                     Which goal would you like to modify?
                     <br></br>
-                    <select value={savingsGoals.existingCategory} onChange={handleContribute}>
+                    <select className="select" value={savingsGoals.existingCategory} onChange={handleContribute}>
                         <option value="">Select Goal</option>
                         {savingsGoals.goals.map((goal, index) => (
                             <option key={index} value={goal.category}>

@@ -10,7 +10,7 @@ const LogInPage = () => {
             <LogIn></LogIn>
             <p>Don't Have An Account?</p>
             <Link to="/signup">
-                <button>Sign-Up</button>
+                <button className="button">Sign-Up</button>
             </Link>
         </div>
     );

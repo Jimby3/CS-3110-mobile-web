@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './App.css';
 import {initializeApp} from "firebase/app";
-
+import './css/styles.css';
 
 import {
   BrowserRouter as Router,
@@ -17,7 +17,6 @@ import ErrorPage from "./pages/ErrorPage";
 import ConfigureBudget from "./pages/budget-pages/ConfigureBudget";
 import ConfigureBudgetCategory from "./pages/budget-pages/ConfigureBudgetCategory";
 import SavingsGoalPage from "./pages/savings-pages/SavingsGoalPage";
-import './css/styles.css';
 import {UserProvider} from "./components/UserContext";
 import SignUpPage from "./pages/authPages/SignUpPage";
 import LogInPage from "./pages/authPages/LogInPage";
@@ -56,30 +55,35 @@ function App() {
 
   // const username = "exampleUsername";
   return (
+
       <UserProvider>
-        <div className="App">
-          <Router>
-            <Routes>
-                <Route index element={<Home />}/>
-                <Route path="/home" element={<Home />} />
-                <Route path="/paycheck" element={<Paycheck />} />
-                <Route path="/paycheck-config" element={<PaycheckConfig />} />
-                <Route path="/login" element={<LogInPage />} />
-                <Route path="/signup" element={<SignUpPage />} />
-                <Route path="/savings" element={<SavingsGoalPage />} />
-                <Route path="/modify-goal" element={<ModifyGoalPage />} />
-                <Route path="/paycheck-budget" element={<PaycheckBudget />} />
-                <Route path="/configure-budget" element={<ConfigureBudget/>} />
-                <Route path="/configure-budget-category" element={<ConfigureBudgetCategory/>} />
-                <Route path="/paycheck" element={<Paycheck />} />
-                <Route path="/logout" element={<LogOutPage />} />
-                <Route path="*" element={<ErrorPage />} />
-            </Routes>
-          </Router>
+          <Navbar></Navbar>
+          <div>
+          <div className="button-container">{user ? <LogOut/> : <button className="logInOut" onClick={handleLogin}>Log In</button> }</div>
+          <div className="App">
+              <Router>
+                  <Routes>
+                      <Route index element={<Home/>}/>
+                      <Route path="/home" element={<Home/>}/>
+                      <Route path="/paycheck" element={<Paycheck/>}/>
+                      <Route path="/paycheck-config" element={<PaycheckConfig/>}/>
+                      <Route path="/login" element={<LogInPage/>}/>
+                      <Route path="/signup" element={<SignUpPage/>}/>
+                      <Route path="/savings" element={<SavingsGoalPage/>}/>
+                      <Route path="/modify-goal" element={<ModifyGoalPage/>}/>
+                      <Route path="/paycheck-budget" element={<PaycheckBudget/>}/>
+                      <Route path="/configure-budget" element={<ConfigureBudget/>}/>
+                      <Route path="/configure-budget-category" element={<ConfigureBudgetCategory/>}/>
+                      <Route path="/paycheck" element={<Paycheck/>}/>
+                      <Route path="/logout" element={<LogOutPage/>}/>
+                      <Route path="*" element={<ErrorPage/>}/>
+                  </Routes>
+              </Router>
+          </div>
+          </div>
           <header className="App-header">
               {user ? <p>Logged In As: {user.email}</p> : <p>No user signed in</p>}
           </header>
-        </div>
       </UserProvider>
   );
 }

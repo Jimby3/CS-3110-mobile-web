@@ -51,8 +51,7 @@ const PaycheckConfig = () => {
     const calculatedValues = paycheckMath();
 
     return (
-        <div>
-            <Navbar></Navbar>
+        <div className="defaultPage">
             <form>
                 <div class="input-group mb-3">
                   <span class="input-group-text">$</span>
@@ -60,7 +59,7 @@ const PaycheckConfig = () => {
                 </div>
 
                 <div class="mb-3">
-                    <label for="payperiodInput" class="form-label">Number of Payperiods</label>
+                    <label className="form-label" for="payperiodInput" class="form-label">Number of Payperiods</label>
                     <select class="form-select" id="payperiodInput">
                         <option selected>Number of Payperiods</option>
                         <option value="260">Daily - 260 per year</option>
@@ -76,7 +75,7 @@ const PaycheckConfig = () => {
               <div class ="accordian" id="accordionPayperiodHelp">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        <button className="button" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                             Help Icon <i class="bi bi-question"></i>
                         </button>
                     </h2>
@@ -102,7 +101,7 @@ const PaycheckConfig = () => {
               <div class ="accordian" id="accordionWithholdingHelp">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        <button className="button" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                             Help Icon <i class="bi bi-question"></i>
                         </button>
                     </h2>
@@ -153,7 +152,7 @@ const PaycheckConfig = () => {
 
             </form>
             <Link to="../paycheck">
-                <button>Back to Paycheck Calc</button>
+                <button className="button">Back to Paycheck Calc</button>
               </Link>
             <hr></hr>
             <p>For more information please check: https://tax.colorado.gov/withholding-tax-guide</p>

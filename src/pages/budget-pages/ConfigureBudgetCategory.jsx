@@ -95,7 +95,7 @@ const ConfigureBudgetCategory = () => {
 
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label  className="form-label" htmlFor="categoryName">Category Name: </label>
+                    <label className="form-label" htmlFor="categoryName">Category Name: </label>
                     <input type="text" id="categoryName" name="categoryName" required placeholder="Enter category name"/>
                 </div>
                 <div>
