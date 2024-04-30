@@ -3,9 +3,18 @@ import {Link, useLocation} from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import {getAuth} from "firebase/auth";
 import readIncome from "../../components/Crud/readIncome";
+import readHourlyPay from "../../components/Crud/readHourlyPay";
+import readPayPeriods from "../../components/Crud/readPayPeriods";
+import readWithholding from "../../components/Crud/readWithholding";
 import updateHours from "../../components/Crud/updateHours";
+import paycheckMath from "../../components/PaycheckMath";
+import updateIncome from "../../components/Crud/updateIncome";
 
 const Paycheck = () => {
+  const [roundedValue, setRoundedValue] = useState(null);
+  const [roundedFMLValue, setRoundedFMLValue] = useState(null);
+  const [totalValue, setTotalValue] = useState(null);
+  
   useEffect(() => {
     //similar form of fetchBudget just modified for user only
       const fetchUser = async () => {
@@ -35,8 +44,26 @@ const Paycheck = () => {
       const formData = new FormData(event.target);
       const hours = parseFloat(formData.get('hoursInput'));
 
+      const hourly = readHourlyPay();
+      console.log("Hourly", hourly)
+      const payperiods = readPayPeriods();
+      console.log("payperiods", payperiods)
+      const withholding = readWithholding();
+      console.log("withholding", withholding)
+      const addwithholding = 0;
+
+      const { rounded, roundedFML, total } = paycheckMath(hours, hourly, payperiods, withholding, addwithholding)
+
+      setRoundedValue(rounded);
+      console.log("rounded", rounded)
+      setRoundedFMLValue(roundedFML);
+      console.log("roundedFML", roundedFML)
+      setTotalValue(total);
+      console.log("total", total)
+
       // Update the hours categories in the database
       await updateHours(hours);
+      await updateIncome(total)
   };
 
     return (

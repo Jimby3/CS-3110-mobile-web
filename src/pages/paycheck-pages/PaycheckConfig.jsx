@@ -58,6 +58,7 @@ const PaycheckConfig = () => {
         // Retrieve stored budget from the database
         let budget = await readBudget();
         let hours = await readHours();
+        let income = await readIncome();
 
 
         // Access the form data
@@ -94,7 +95,7 @@ const PaycheckConfig = () => {
 
         await updateHourlyPay(hourly)
         await updatePayPeriods(payperiods)
-        await updateWithholding(roundedValue)
+        await updateWithholding(withholding)
         await updateAdditionalWithholding(addwithholding)
         await updateIncome(totalValue)
     
