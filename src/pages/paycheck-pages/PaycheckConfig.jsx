@@ -14,11 +14,16 @@ import updatePayPeriods from "../../components/Crud/updatePayPeriods";
 import updateWithholding from "../../components/Crud/updateWithholding";
 import updateAdditionalWithholding from "../../components/Crud/updateAdditionalWithholding";
 import paycheckMath from "../../components/PaycheckMath";
+import readHours from "../../components/Crud/readHours";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const PaycheckConfig = () => {
     const [user, setUser] = useState(null);
     const [budget, setBudget] = useState(null);
+
+    const [roundedValue, setRoundedValue] = useState(null);
+    const [roundedFMLValue, setRoundedFMLValue] = useState(null);
+    const [totalValue, setTotalValue] = useState(null);
 
     useEffect(() => {
         const fetchBudget = async () => {
@@ -51,10 +56,11 @@ const PaycheckConfig = () => {
 
         // Retrieve stored budget from the database
         let budget = await readBudget();
+        let hours = await readHours();
+
 
         // Access the form data
         const formData = new FormData(event.target);
-        //const categoryName = formData.get('categoryName');
         const hourly = parseFloat(formData.get('payInput'));
         const payperiods = parseFloat(formData.get('payperiodInput'));
         const withholding = parseFloat(formData.get('withholdingInput'));
@@ -77,11 +83,19 @@ const PaycheckConfig = () => {
 
         budget.correctBudgetOffIncome(await readIncome())
         
-        //await paycheckMath(hours, hourly, payperiods, aaa) // somehow return the things to display on screen
+        const { rounded, roundedFML, total } = await paycheckMath(hours, hourly, payperiods, withholding, addwithholding)
+        console.log("Rounded:", rounded);
+        console.log("Rounded FML:", roundedFML);
+        console.log("Total:", total);
+
         await updateHourlyPay(hourly)
         await updatePayPeriods(payperiods)
         await updateWithholding(withholding)
         await updateAdditionalWithholding(addwithholding)
+
+        setRoundedValue(rounded);
+        setRoundedFMLValue(roundedFML);
+        setTotalValue(total);
         //update Colorado FML
 
     };
@@ -157,36 +171,9 @@ const PaycheckConfig = () => {
               <hr></hr>
 
 
-              <p>Estimated Yearly Income: Put explainer text</p>
-              <div class="input-group mb-3">
-                  <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="yearlyTotal" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income" readonly></input>
-            </div>
-            
-              <p>Total calulated witholding yearly total</p>
-              <p></p>
-              <hr></hr>
-              <p>Hidden: Percent </p>
-              <p>Hidden: Unrounded </p>
-              <p>Hidden: Rounded </p>
-              <p>Colorado FML - Checkbox</p>
-              <p>(If true do hours times 0.072, else 0)</p>
+              <p>Based on the given information your withholding is: ${roundedValue + roundedFMLValue}</p>
+              <p>Your paycheck would be: ${totalValue}</p>
 
-              <p>Return hidden rounded + colorado FML amount</p>
-              <p>Rounded Withholding Amount: </p>
-              <div class="input-group mb-3">
-                  <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="withholdingDisplay" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income"  readonly></input>
-            </div>
-              <p>Colorado FML Amount: </p>
-              <div class="input-group mb-3">
-                  <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="withholdingDisplay" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income" readonly></input>
-            </div>
-            <div class="input-group mb-3">
-                  <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="withholdingDisplay" aria-label="Estimated Yearly Income" placeholder="Estimated Yearly Income" readonly></input>
-            </div>
             <button className="button" >Save hours</button>
             </form>
             <Link to="../paycheck">
