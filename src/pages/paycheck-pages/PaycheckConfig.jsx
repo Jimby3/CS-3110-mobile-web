@@ -75,14 +75,6 @@ const PaycheckConfig = () => {
         console.log("withholding", withholding)
         console.log(addwithholding)
         console.log(coloradoFML)
-        // Set the dollar amount or percentage based on the selected type
-        //if (amountType === 'dollars') {
-            //category.dollarAmount = amount;
-            //category.trueDollar = true;
-        //} else {
-            //category.percentage = amount;
-        //}
-
         
         const { rounded, roundedFML, total } = await paycheckMath(hours, hourly, payperiods, withholding, addwithholding)
         console.log("Rounded:", rounded);
@@ -103,6 +95,9 @@ const PaycheckConfig = () => {
 
     return (
         <div className="defaultPage">
+            <div>
+                
+            </div>
             <form onSubmit={handleSubmit}>
                 <div class="input-group mb-3">
                   <span class="input-group-text">$</span>
@@ -173,7 +168,7 @@ const PaycheckConfig = () => {
               <p>Based on the given information your withholding is: ${roundedValue + roundedFMLValue}</p>
               <p>Your paycheck would be: ${totalValue}</p>
 
-            <button className="button" >Save hours</button>
+            <button className="button" >Save Options and Calculate Income</button>
             </form>
             <Link to="../paycheck">
                 <button className="button">Back to Paycheck Calc</button>

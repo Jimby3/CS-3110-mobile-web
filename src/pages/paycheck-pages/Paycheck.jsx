@@ -72,7 +72,7 @@ const Paycheck = () => {
             <form onSubmit={handleSubmit}>
               <label className="form-label" for="hoursInput">Hours Worked</label><br></br>
               <input className="input-field" type="number" id="hoursInput" name="hoursInput"></input><br></br>
-              <button className="button" >Save hours</button>
+              <button className="button" >Save hours and see income</button>
               <p>This is where the gross pay will go</p>
               <Link to="../paycheck-config">
                 <button className="button" >Configure Withholding Amount/Config</button>
