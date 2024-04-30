@@ -73,9 +73,9 @@ const PaycheckConfig = () => {
         console.log("Hourly", hourly)
         console.log("payperiods", payperiods)
         console.log("withholding", withholding)
-        console.log(addwithholding)
-        console.log(coloradoFML)
-        
+        console.log("addWithholding", addwithholding)
+        console.log("Colorado FML", coloradoFML)
+
         const { rounded, roundedFML, total } = await paycheckMath(hours, hourly, payperiods, withholding, addwithholding)
         console.log("Rounded:", rounded);
         console.log("Rounded FML:", roundedFML);
@@ -89,14 +89,14 @@ const PaycheckConfig = () => {
         await updatePayPeriods(payperiods)
         await updateWithholding(withholding)
         await updateAdditionalWithholding(addwithholding)
-        await updateIncome(totalValue)
-    
+        await updateIncome(total)
+
     };
 
     return (
         <div className="defaultPage">
             <div>
-                
+
             </div>
             <form onSubmit={handleSubmit}>
                 <div class="input-group mb-3">
@@ -161,7 +161,7 @@ const PaycheckConfig = () => {
                     </div>
                 </div>
               </div>
-              
+
               <hr></hr>
 
 
@@ -177,7 +177,7 @@ const PaycheckConfig = () => {
             <p>For more information please check: https://tax.colorado.gov/withholding-tax-guide</p>
             <p>View Colorado's own calculator: https://tax.colorado.gov/DR1098 </p>
             <p>Math taken from: https://tax.colorado.gov/sites/tax/files/documents/DR_1098_Withholding_Calculator_Nov_2023_Revision_for_2024.xlsx</p>
-            
+
         </div>
 
     );
