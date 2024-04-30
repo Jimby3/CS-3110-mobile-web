@@ -141,12 +141,12 @@ const SavingsGoalPage = () => {
                     <li key={index}>
                         {goal.category} - Goal: ${goal.goalAmount}, Current: ${goal.currentAmount}
                         {/* Progress bar */}
-                        <div style={{width: "50%", margin: "0 auto", backgroundColor: "#ddd"}}>
+                        <div style={{width: "75%", margin: "0 auto", backgroundColor: "#ddd"}}>
                             <div
                                 style={{
                                     width: `${calculateProgress(goal)}%`,
-                                    height: "20px",
-                                    backgroundColor: "#33A6FF",
+                                    height: "25px",
+                                    backgroundColor: "#5a855f",
                                 }}
                             />
                         </div>
@@ -173,7 +173,7 @@ const SavingsGoalPage = () => {
                             <label className="form-label">
                                 Contribution Amount:
                                 &nbsp;
-                                <input
+                                <input className={"input-field"}
                                     type="number"
                                     value={contribution}
                                     onChange={(e) => setContribution(e.target.value)}
