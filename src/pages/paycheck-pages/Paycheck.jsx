@@ -2,18 +2,13 @@ import React, {useEffect, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import {getAuth} from "firebase/auth";
-import {getFirestore} from "firebase/firestore";
-import readBudget from "../../components/Crud/readBudget";
-import updateBudgetCategories from "../../components/Crud/updateBudgetCategories";
 import readIncome from "../../components/Crud/readIncome";
 import updateHours from "../../components/Crud/updateHours";
 
 const Paycheck = () => {
-  const [user, setUser] = useState(null);
-  const [budget, setBudget] = useState(null);
-
   useEffect(() => {
-      const fetchBudget = async () => {
+    //similar form of fetchBudget just modified for user only
+      const fetchUser = async () => {
           try {
               // Get Firebase Auth instance and current user
               const auth = await getAuth();
@@ -23,35 +18,24 @@ const Paycheck = () => {
                   throw new Error('No user is currently signed in.');
               }
 
-              // Fetch the budget from the database
-              const budgetData = await readBudget()
-
-              // Update the budget state
-              setBudget(budgetData);
           } catch (error) {
               console.error('Error fetching budget:', error);
           }
       };
 
-      // Call the fetchBudget function when the component mounts
-      fetchBudget();
+      // Call the fetchUser function when the component mounts
+      fetchUser();
 
   }, []); // Empty dependency array to ensure the effect runs only once
 
   const handleSubmit = async (event) => {
       event.preventDefault();
 
-      // Retrieve stored budget from the database
-      let budget = await readBudget();
-
       // Access the form data
       const formData = new FormData(event.target);
       const hours = parseFloat(formData.get('hoursInput'));
 
-
-      budget.correctBudgetOffIncome(await readIncome())
-
-      // Update the budget categories in the database
+      // Update the hours categories in the database
       await updateHours(hours);
   };
 
