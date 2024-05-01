@@ -77,16 +77,15 @@ const Home = () => {
                     <br></br>
                     <div className="col-md-4">
                         <h2>Our App</h2>
-                        <p>Our App is a personal finance app that was designed by 3 college students for a class.
+                        <p>Our app is a personal finance app that was designed by 3 college students for a class.
                             We utilized HTML, CSS, JavaScript, and React/Bootstrap to implement our application</p>
                     </div>
                     <div className="col-md-4">
                         <h2>CS 3110</h2>
-                        <p>CS 3110 - Programming the Mobile Web, is a class designated to learning programming
+                        <p>CS 3110 - Programming the Mobile Web is a class designated to learning programming
                             ideologies and implementations in the context of mobile devices</p>
                     </div>
                     <div className="col-md-4">
-                        {/* Column 3 content */}
                         <h2>About us</h2>
                         <p>We are three college students who got tasked with making a mobile-first application for the
                         duration of a semester, we all came in with limited experience and ended up creating this

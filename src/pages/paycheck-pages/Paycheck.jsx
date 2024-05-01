@@ -68,17 +68,18 @@ const Paycheck = () => {
 
     return (
         <div className="defaultPage">
+            <h1 className="header">Paycheck</h1>
 
             <form onSubmit={handleSubmit}>
-              <label className="form-label" for="hoursInput">Hours Worked</label><br></br>
-              <input className="input-field" type="number" id="hoursInput" name="hoursInput"></input><br></br>
-              <button className="button" >Save hours and see income</button>
-              <p>This is where the gross pay will go</p>
-              <Link to="../paycheck-config">
-                <button className="button" >Configure Withholding Amount/Config</button>
-              </Link>
-            
-              <p>Final Value: {totalValue}</p><br></br>
+                <label className="form-label" for="hoursInput">Hours Worked</label><br></br>
+                <input className="input-field" type="number" id="hoursInput" name="hoursInput"></input><br></br>
+                <button className="button">Save hours and see income</button>
+                <p>This is where the gross pay will go</p>
+                <Link to="../paycheck-config">
+                    <button className="button">Configure Withholding Amount/Config</button>
+                </Link>
+
+                <p>Final Value: {totalValue}</p><br></br>
             </form>
 
         </div>
