@@ -68,7 +68,7 @@ function SignUp() {
 
             // Create a new document in the 'goals' subcollection as a placeholder
             await addDoc(goalsCollectionRef, {
-                category: "exampleCategory",
+                category: "exampleGoal",
                 goalAmount: 10000,
                 currentAmount: 2000
 
