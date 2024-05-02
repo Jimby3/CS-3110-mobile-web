@@ -97,7 +97,7 @@ const PaycheckConfig = () => {
         <div className="defaultPage">
             <h1 className="header">Paycheck Configuration</h1>
             <form onSubmit={handleSubmit}>
-                <div class="col-6 mx-auto pt-3">
+                <div class="col-8 mx-auto pt-3">
                     <label className="form-label" for="payInput" class="form-label"><strong>Hourly Pay</strong></label>
                     <div class="input-group mb-3">
                         <span class="input-group-text">$</span>

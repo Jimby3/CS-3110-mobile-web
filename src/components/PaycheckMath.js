@@ -11,7 +11,7 @@ const paycheckMath = async (hours, hourly, payperiods, withholding, addwithholdi
     const rounded = exactAmount.toFixed(2);
     const roundedFML = coloradoFML.toFixed(2);
 
-    const total = wages - rounded - roundedFML //db 
+    const total = (wages - (Number(rounded) + Number(roundedFML))).toFixed(2);
 
         return {
             rounded,
