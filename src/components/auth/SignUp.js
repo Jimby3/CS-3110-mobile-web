@@ -74,8 +74,6 @@ function SignUp() {
 
             });
 
-            // User signed up successfully
-            window.location = '/';
         } catch (error) {
             // Handle sign-up errors
             setError(error.message);

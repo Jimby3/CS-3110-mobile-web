@@ -13,7 +13,6 @@ function Login() {
             let auth = getAuth()
             await signInWithEmailAndPassword(auth, email, password);
             // User logged in successfully
-            window.location = '/'
         } catch (error) {
             // Handle login errors
             setError(error.message);

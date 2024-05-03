@@ -7,7 +7,7 @@ const LogOut = () => {
         try {
             const auth = getAuth();
             await signOut(auth);
-            window.location = '/'
+            // window.location = '/'
         } catch (error) {
             console.error('Error signing out:', error);
         }
