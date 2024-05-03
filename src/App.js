@@ -41,10 +41,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-console.log(app.name)
+console.log(app.name);
 
 function App() {
-
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -57,42 +56,50 @@ function App() {
     }, []);
 
     const handleLogin = async (event) => {
-        window.location = "/login"
-    }
+        window.location = "/login";
+    };
 
-  return (
-
-      <UserProvider>
-          <Navbar></Navbar>
-          <div>
-          <div className="button-container">{user ? <LogOut/> : <button className="logInOut" onClick={handleLogin}>Log In</button> }</div>
-          <div className="App">
-              <Router>
-                  <Routes>
-                      <Route index element={<Home/>}/>
-                      <Route path="/home" element={<Home/>}/>
-                      <Route path="/paycheck" element={<Paycheck/>}/>
-                      <Route path="/paycheck-config" element={<PaycheckConfig/>}/>
-                      <Route path="/login" element={<LogInPage/>}/>
-                      <Route path="/signup" element={<SignUpPage/>}/>
-                      <Route path="/savings" element={<SavingsGoalPage/>}/>
-                      <Route path="/modify-goal" element={<ModifyGoalPage/>}/>
-                      <Route path="/paycheck-budget" element={<PaycheckBudget/>}/>
-                      <Route path="/configure-budget" element={<ConfigureBudget/>}/>
-                      <Route path="/configure-budget-category" element={<ConfigureBudgetCategory/>}/>
-                      <Route path="/paycheck" element={<Paycheck/>}/>
-                      <Route path="/logout" element={<LogOutPage/>}/>
-                      <Route path="*" element={<ErrorPage/>}/>
-                  </Routes>
-              </Router>
-          </div>
-          </div>
-          <header className="App-header">
-              {user ? <p>Logged In As: {user.email}</p> : <p>No user signed in</p>}
-          </header>
-      </UserProvider>
-  );
+    return (
+        <UserProvider>
+            <Navbar />
+            <div>
+                <div className="button-container">
+                    {user ? (
+                        <LogOut />
+                    ) : (
+                        <button className="logInOut" onClick={handleLogin}>
+                            Log In
+                        </button>
+                    )}
+                </div>
+                <div className="App">
+                    <Router>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/home" element={<Home />} />
+                            <Route path="/paycheck" element={<Paycheck />} />
+                            <Route path="/paycheck-config" element={<PaycheckConfig />} />
+                            <Route path="/login" element={<LogInPage />} />
+                            <Route path="/signup" element={<SignUpPage />} />
+                            <Route path="/savings" element={<SavingsGoalPage />} />
+                            <Route path="/modify-goal" element={<ModifyGoalPage />} />
+                            <Route path="/paycheck-budget" element={<PaycheckBudget />} />
+                            <Route path="/configure-budget" element={<ConfigureBudget />} />
+                            <Route
+                                path="/configure-budget-category"
+                                element={<ConfigureBudgetCategory />}
+                            />
+                            <Route path="/logout" element={<LogOutPage />} />
+                            <Route path="*" element={<ErrorPage />} />
+                        </Routes>
+                    </Router>
+                </div>
+            </div>
+            <header className="App-header">
+                {user ? <p>Logged In As: {user.email}</p> : <p>No user signed in</p>}
+            </header>
+        </UserProvider>
+    );
 }
-
 
 export default App;
