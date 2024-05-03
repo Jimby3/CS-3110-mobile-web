@@ -3,10 +3,11 @@ import {initializeApp} from "firebase/app";
 import './css/styles.css';
 
 
+
 import {
     BrowserRouter as Router,
     Routes,
-    Route, Link, redirect,
+    Route, Link,
 } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -55,11 +56,6 @@ function App() {
         return () => unsubscribe(); // Unsubscribe from the listener when component unmounts
     }, []);
 
-    const handleLogin = async (event) => {
-        console.log("redirect")
-
-        window.location = process.env.PUBLIC_URL + "/login"
-    };
 
     return (
         <UserProvider>
@@ -73,9 +69,9 @@ function App() {
                             {user ? (
                                 <LogOut/>
                             ) : (
-                                <button className="logInOut" onClick={handleLogin}>
+                                <Link to='/login' className="logInOut" >
                                     Log In
-                                </button>
+                                </Link>
                             )}
                         </div>
                         <Routes>
