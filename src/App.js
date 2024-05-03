@@ -1,13 +1,12 @@
 import React, {useEffect, useState, useContext} from "react";
 import {initializeApp} from "firebase/app";
 import './css/styles.css';
-import ReactDOM from 'react-dom/client';
-import {useNavigate, useNavigation} from "react-router-dom";
+
 
 import {
     BrowserRouter as Router,
     Routes,
-    Route, Link,
+    Route, Link, redirect,
 } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -57,7 +56,7 @@ function App() {
     }, []);
 
     const handleLogin = async (event) => {
-        // window.location = 'https://jimby3.github.io/CS-3110-mobile-web/login'
+        redirect('/login')
     };
 
     return (
