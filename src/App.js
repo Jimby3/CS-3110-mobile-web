@@ -63,35 +63,36 @@ function App() {
         <UserProvider>
 
             <div>
-                <div className="button-container">
-                    {user ? (
-                        <LogOut />
-                    ) : (
-                        <button className="logInOut" onClick={handleLogin}>
-                            Log In
-                        </button>
-                    )}
-                </div>
+
                 <div className="App">
                     <Router basename={process.env.PUBLIC_URL}>
-                        <Navbar />
+                        <Navbar/>
+                        <div className="button-container">
+                            {user ? (
+                                <LogOut/>
+                            ) : (
+                                <button className="logInOut" onClick={handleLogin}>
+                                    Log In
+                                </button>
+                            )}
+                        </div>
                         <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/home" element={<Home />} />
-                            <Route path="/paycheck" element={<Paycheck />} />
-                            <Route path="/paycheck-config" element={<PaycheckConfig />} />
-                            <Route path="/login" element={<LogInPage />} />
-                            <Route path="/signup" element={<SignUpPage />} />
-                            <Route path="/savings" element={<SavingsGoalPage />} />
-                            <Route path="/modify-goal" element={<ModifyGoalPage />} />
-                            <Route path="/paycheck-budget" element={<PaycheckBudget />} />
-                            <Route path="/configure-budget" element={<ConfigureBudget />} />
+                            <Route path="/" element={<Home/>}/>
+                            <Route path="/home" element={<Home/>}/>
+                            <Route path="/paycheck" element={<Paycheck/>}/>
+                            <Route path="/paycheck-config" element={<PaycheckConfig/>}/>
+                            <Route path="/login" element={<LogInPage/>}/>
+                            <Route path="/signup" element={<SignUpPage/>}/>
+                            <Route path="/savings" element={<SavingsGoalPage/>}/>
+                            <Route path="/modify-goal" element={<ModifyGoalPage/>}/>
+                            <Route path="/paycheck-budget" element={<PaycheckBudget/>}/>
+                            <Route path="/configure-budget" element={<ConfigureBudget/>}/>
                             <Route
                                 path="/configure-budget-category"
-                                element={<ConfigureBudgetCategory />}
+                                element={<ConfigureBudgetCategory/>}
                             />
-                            <Route path="/logout" element={<LogOutPage />} />
-                            <Route path="*" element={<ErrorPage />} />
+                            <Route path="/logout" element={<LogOutPage/>}/>
+                            <Route path="*" element={<ErrorPage/>}/>
                         </Routes>
                     </Router>
                 </div>
