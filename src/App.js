@@ -56,7 +56,7 @@ function App() {
     }, []);
 
     const handleLogin = async (event) => {
-        window.location = "/login";
+        window.location = "/CS-3110-mobile-web/login";
     };
 
     return (
