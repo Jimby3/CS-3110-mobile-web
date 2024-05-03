@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import {initializeApp} from "firebase/app";
 import './css/styles.css';
 import ReactDOM from 'react-dom/client';
+import {useNavigate, useNavigation} from "react-router-dom";
 
 import {
     BrowserRouter as Router,
@@ -56,7 +57,9 @@ function App() {
     }, []);
 
     const handleLogin = async (event) => {
-        return <Link to='/login'/>;
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const navigate = useNavigate();
+        navigate('/login');
     };
 
     return (
