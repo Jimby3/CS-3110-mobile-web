@@ -4,7 +4,7 @@ import './css/styles.css';
 import ReactDOM from 'react-dom/client';
 
 import {
-  HashRouter as Router,
+  BrowserRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
@@ -94,10 +94,5 @@ function App() {
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-    <Router>
-        <App />
-    </Router>
-);
+
 export default App;
