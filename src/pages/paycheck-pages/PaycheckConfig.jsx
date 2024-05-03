@@ -142,7 +142,7 @@ const PaycheckConfig = () => {
                 </div>
                 <div class="input-group mb-3">
                   <span class="input-group-text">$</span>
-                  <input type="number" class="form-control" id="addwithholdingInput" name="addwithholdingInput" aria-label="Addtional Withholding Allowance Amount (optional)" placeholder="Addtional Withholding Allowance Amount (optional)"></input>
+                  <input type="number" class="form-control" id="addwithholdingInput" name="addwithholdingInput" aria-label="Addtional Withholding Allowance Amount" placeholder="Addtional Withholding Allowance Amount"></input>
                 </div>
               <div class ="accordian" id="accordionWithholdingHelp">
                 <div class="accordion-item">
