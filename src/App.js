@@ -56,7 +56,7 @@ function App() {
     }, []);
 
     const handleLogin = async (event) => {
-        redirect('/login')
+        // redirect('/login')
     };
 
     return (
