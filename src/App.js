@@ -4,9 +4,9 @@ import './css/styles.css';
 import ReactDOM from 'react-dom/client';
 
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
+    BrowserRouter as Router,
+    Routes,
+    Route, Link,
 } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -56,12 +56,12 @@ function App() {
     }, []);
 
     const handleLogin = async (event) => {
-        window.location = "/CS-3110-mobile-web/login";
+        return <Link to='/login'/>;
     };
 
     return (
         <UserProvider>
-            <Navbar />
+
             <div>
                 <div className="button-container">
                     {user ? (
@@ -74,6 +74,7 @@ function App() {
                 </div>
                 <div className="App">
                     <Router basename={process.env.PUBLIC_URL}>
+                        <Navbar />
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/home" element={<Home />} />
