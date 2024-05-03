@@ -57,8 +57,7 @@ function App() {
     }, []);
 
     const handleLogin = async (event) => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        window.location = 'https://jimby3.github.io/CS-3110-mobile-web/login'
+        // window.location = 'https://jimby3.github.io/CS-3110-mobile-web/login'
     };
 
     return (
