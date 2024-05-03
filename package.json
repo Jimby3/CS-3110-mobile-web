@@ -2,7 +2,7 @@
   "name": "untitled",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jimby3.github.io/CS-3110-mobile-web",
+  "homepage": "https://jimby3.github.io/CS-3110-mobile-web/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

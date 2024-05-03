@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {initializeApp} from "firebase/app";
 import './css/styles.css';
+import ReactDOM from 'react-dom/client';
 
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
@@ -36,6 +37,7 @@ const firebaseConfig = {
     messagingSenderId: "1050027759057",
     appId: "1:1050027759057:web:990f9fc8182d7faed4fcf0"
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -92,4 +94,10 @@ function App() {
   );
 }
 
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <Router>
+        <App />
+    </Router>
+);
 export default App;
