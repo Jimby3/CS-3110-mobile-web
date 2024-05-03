@@ -56,7 +56,9 @@ function App() {
     }, []);
 
     const handleLogin = async (event) => {
-        // redirect('/login')
+        console.log("redirect")
+
+        window.location = process.env.PUBLIC_URL + "/login"
     };
 
     return (
