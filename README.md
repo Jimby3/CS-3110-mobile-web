@@ -3,6 +3,7 @@
 
 This is a personal finance web app designed for mobile first. Our personal finance bobile app helps users to track and manage your money. This was created for our group semester project for CS 3110 in Spring of 2024. 
 
+It can be found live at [https://jimby3.github.io/CS-3110-mobile-web/](https://jimby3.github.io/CS-3110-mobile-web/)
 
 
 ## Authors
